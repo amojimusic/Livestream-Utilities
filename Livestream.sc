@@ -2612,91 +2612,91 @@ Livestream35 : Livestream {
 	*animation {
 
 
-(
-LiveWindow().front.alwaysOnTop_(true);
+		(
+			LiveWindow().front.alwaysOnTop_(true);
 
-~l = LiveView.view;
-~bassSig = 0;
-~bassFreq = 0;
-~bassEnv = 0;
-~padSig = 0;
-~padFreq = 100;
-~padEnv = 0;
-~pluckSig = 0;
-~pluckFreq = 0;
-~pluckEnv = 0;
-~bass2Env = 0;
-~bass2Freq = 0;
-~bass2Sig = 0;
-~kickSig = 0;
-~kickEnv = 0;
-~hatEnv = 0;
-~hatSig = 0;
-~snareEnv = 0;
-~snareSig = 0;
+			~l = LiveView.view;
+			~bassSig = 0;
+			~bassFreq = 0;
+			~bassEnv = 0;
+			~padSig = 0;
+			~padFreq = 100;
+			~padEnv = 0;
+			~pluckSig = 0;
+			~pluckFreq = 0;
+			~pluckEnv = 0;
+			~bass2Env = 0;
+			~bass2Freq = 0;
+			~bass2Sig = 0;
+			~kickSig = 0;
+			~kickEnv = 0;
+			~hatEnv = 0;
+			~hatSig = 0;
+			~snareEnv = 0;
+			~snareSig = 0;
 
-~l.drawFunc_({
-	~l.background_(Color(~padEnv.clip2(0.99), ~bass2Env.clip2(0.99), (~pluckFreq * 0.001).clip2(0.99)));
-	Pen.moveTo(200@200);
-	Pen.lineTo((200 + (~bassSig * 700) + (~bassEnv * 200))@(200 + ((~bassSig.neg * 400) + (~bassEnv * 50))));
-	Pen.strokeColor_(Color((~bassFreq * 0.03).clip2(0.99), ~bassEnv.clip2(0.99), ~bassSig.abs.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
-
-
-	Pen.moveTo((200 + (~bassSig * 700))@(200 + ((~bassSig.neg * 400) + (~bassEnv * 50) )));
-	Pen.lineTo((200 + (~padSig.neg * 1700) + (~padEnv * 200.neg)).clip2(400)@(200 + (~padSig * 1700)).clip2(400));
-	Pen.strokeColor_(Color((~padFreq * 0.00005).clip2(0.99), ~padEnv.clip2(0.99), ~padSig.abs.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
-
-	Pen.moveTo((200 + (~padSig.neg * 1700) + (~padEnv * 200.neg)).clip2(400)@(200 + (~padSig * 1700)).clip2(400));
-	Pen.lineTo((200 + (~pluckSig * 1500)).clip2(400)@(200 + ((~pluckSig.neg * 1500) + (~pluckEnv * 100))).clip2(400));
-	Pen.strokeColor_(Color(~pluckEnv.clip2(0.99), ~pluckSig.abs.clip2(0.99), (~pluckFreq * 0.00005).clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
-
-	Pen.moveTo((200 + (~pluckSig * 1500)).clip2(400)@(200 + ((~pluckSig.neg * 1500) + (~pluckEnv * 100))).clip2(400));
-	Pen.lineTo((200 + (~bass2Sig.neg * 1500)).clip2(400)@(200 + ((~bass2Sig * 1500))).clip2(400));
-	Pen.strokeColor_(Color(~bass2Sig.abs.clip2(0.99), (~bass2Freq * 0.00005).clip2(0.99), ~bass2Env.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
+			~l.drawFunc_({
+				~l.background_(Color(~padEnv.clip2(0.99), ~bass2Env.clip2(0.99), (~pluckFreq * 0.001).clip2(0.99)));
+				Pen.moveTo(200@200);
+				Pen.lineTo((200 + (~bassSig * 700) + (~bassEnv * 200))@(200 + ((~bassSig.neg * 400) + (~bassEnv * 50))));
+				Pen.strokeColor_(Color((~bassFreq * 0.03).clip2(0.99), ~bassEnv.clip2(0.99), ~bassSig.abs.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
 
+				Pen.moveTo((200 + (~bassSig * 700))@(200 + ((~bassSig.neg * 400) + (~bassEnv * 50) )));
+				Pen.lineTo((200 + (~padSig.neg * 1700) + (~padEnv * 200.neg)).clip2(400)@(200 + (~padSig * 1700)).clip2(400));
+				Pen.strokeColor_(Color((~padFreq * 0.00005).clip2(0.99), ~padEnv.clip2(0.99), ~padSig.abs.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
-	Pen.moveTo((200 + (~bass2Sig.neg * 1500)).clip2(400)@(200 + ((~bass2Sig * 1500))).clip2(400));
-	Pen.lineTo((200 + (~kickSig * 1100)).clip2(400)@(200 + ((~kickSig.neg * 1100) + (~kickEnv * 20) )).clip2(400));
-	Pen.strokeColor_(Color(~kickSig.abs.clip2(0.99), (~kickEnv * 0.00005).clip2(0.99), ~kickEnv.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
+				Pen.moveTo((200 + (~padSig.neg * 1700) + (~padEnv * 200.neg)).clip2(400)@(200 + (~padSig * 1700)).clip2(400));
+				Pen.lineTo((200 + (~pluckSig * 1500)).clip2(400)@(200 + ((~pluckSig.neg * 1500) + (~pluckEnv * 100))).clip2(400));
+				Pen.strokeColor_(Color(~pluckEnv.clip2(0.99), ~pluckSig.abs.clip2(0.99), (~pluckFreq * 0.00005).clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
-	Pen.moveTo((200 + (~kickSig * 1100)).clip2(400)@(200 + ((~kickSig.neg * 1100) + (~kickEnv * 20))).clip2(400));
-	Pen.lineTo((200 + (~snareSig.neg * 1100)).clip2(400)@(200 + ((~snareSig * 1100) )).clip2(400));
-	Pen.strokeColor_(Color(~snareSig.abs.clip2(0.99), (~snareEnv * 0.00005).clip2(0.99), ~snareEnv.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
-
-	Pen.moveTo((200 + (~snareSig.neg * 1100)).clip2(400)@(200 + ((~snareSig * 1100) )).clip2(400));
-	Pen.lineTo((200 + (~hatSig * 1100)).clip2(400)@(200 + ((~hatSig.neg * 1100) )).clip2(400));
-	Pen.strokeColor_(Color(~hatSig.abs.clip2(0.99), (~hatEnv * 0.00005).clip2(0.99), ~hatEnv.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
-
-	Pen.moveTo((200 + (~hatSig * 1100)).clip2(400)@(200 + ((~hatSig.neg * 1100) )).clip2(400));
-	Pen.lineTo(200@200);
-	Pen.strokeColor_(Color(~bass2Sig.abs.clip2(0.99), (~padEnv * 0.00005).clip2(0.99), ~bassEnv.clip2(0.99)));
-	Pen.width_((~bassFreq * 0.02).clip2(40));
-	Pen.stroke;
+				Pen.moveTo((200 + (~pluckSig * 1500)).clip2(400)@(200 + ((~pluckSig.neg * 1500) + (~pluckEnv * 100))).clip2(400));
+				Pen.lineTo((200 + (~bass2Sig.neg * 1500)).clip2(400)@(200 + ((~bass2Sig * 1500))).clip2(400));
+				Pen.strokeColor_(Color(~bass2Sig.abs.clip2(0.99), (~bass2Freq * 0.00005).clip2(0.99), ~bass2Env.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
 
-});
 
-~l.frameRate_(25);
+				Pen.moveTo((200 + (~bass2Sig.neg * 1500)).clip2(400)@(200 + ((~bass2Sig * 1500))).clip2(400));
+				Pen.lineTo((200 + (~kickSig * 1100)).clip2(400)@(200 + ((~kickSig.neg * 1100) + (~kickEnv * 20) )).clip2(400));
+				Pen.strokeColor_(Color(~kickSig.abs.clip2(0.99), (~kickEnv * 0.00005).clip2(0.99), ~kickEnv.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
-~l.animate_(true);
+				Pen.moveTo((200 + (~kickSig * 1100)).clip2(400)@(200 + ((~kickSig.neg * 1100) + (~kickEnv * 20))).clip2(400));
+				Pen.lineTo((200 + (~snareSig.neg * 1100)).clip2(400)@(200 + ((~snareSig * 1100) )).clip2(400));
+				Pen.strokeColor_(Color(~snareSig.abs.clip2(0.99), (~snareEnv * 0.00005).clip2(0.99), ~snareEnv.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
+
+				Pen.moveTo((200 + (~snareSig.neg * 1100)).clip2(400)@(200 + ((~snareSig * 1100) )).clip2(400));
+				Pen.lineTo((200 + (~hatSig * 1100)).clip2(400)@(200 + ((~hatSig.neg * 1100) )).clip2(400));
+				Pen.strokeColor_(Color(~hatSig.abs.clip2(0.99), (~hatEnv * 0.00005).clip2(0.99), ~hatEnv.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
+
+				Pen.moveTo((200 + (~hatSig * 1100)).clip2(400)@(200 + ((~hatSig.neg * 1100) )).clip2(400));
+				Pen.lineTo(200@200);
+				Pen.strokeColor_(Color(~bass2Sig.abs.clip2(0.99), (~padEnv * 0.00005).clip2(0.99), ~bassEnv.clip2(0.99)));
+				Pen.width_((~bassFreq * 0.02).clip2(40));
+				Pen.stroke;
 
 
-);
+			});
+
+			~l.frameRate_(25);
+
+			~l.animate_(true);
+
+
+		);
 	}
 
 
@@ -2768,6 +2768,978 @@ LiveView {
 
 
 
+
+Livestream41 : Livestream {
+
+	*play {
+
+		//scope bus 14
+		var track, tR, root, edo, tuning, scale, a, b, c, d, e, f, g, s, scope;
+		s = Server.local;
+
+		track = {
+			var drumBool, padBool, cBool, hatBool, snareBool, kickBool, bassBool, changeBool, minorBool, tMul;
+			if(~visual.isNil){
+				~visual = Bus.audio(s, 2);
+			};
+
+			a = rrand(0, 4);
+			// b = rrand(0, 4);
+			c = rrand(0, 4);
+			d = rrand(0, 4);
+			e = rrand(0, 4);
+			f = rrand(0, 4);
+			g = rrand(0, 4);
+			tMul = [0.5, 1.0].choose;
+			drumBool = rrand(-1, 3);
+			padBool = rrand(-1, 3);
+			cBool = rrand(-1, 4);
+			hatBool = rrand(0, 2);
+			snareBool = rrand(0, 2);
+			kickBool = rrand(0, 2);
+			bassBool = rrand(0, 3);
+			changeBool = rrand(-8, 2);
+			if((changeBool > 0) || (root.isNil)){
+				minorBool = rrand(0, 1);
+				root = rrand(49.0, 55.0);
+				edo = 38;
+				tR = rrand(0.98, 1.75);
+				tuning = TuningArray.edo(root, edo);
+				if(minorBool > 0){
+					scale = [tuning[0], tuning[6], tuning[rrand(9, 10)], tuning[15], tuning[22], tuning[25], tuning[32]];
+				}{
+					scale = [tuning[0], tuning[6], tuning[12], tuning[15], tuning[22], tuning[29], tuning[35]];
+				};
+			};
+			Buffer.freeAll;
+
+
+			if(a == 0){
+				Ndef(\a, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.25, Drand([0.25, Dseq([0.125], 2)], 1), Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.5, 0.25, Drand([0.25, Dseq([0.125, 0.125], 1)], 1)], inf) * tR, 0, Dseq([Drand(scale, 3), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand(scale, 1), Drand([scale[4], Drand(scale, 1)], 1), Drand(scale, Drand([10, 3, 4], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), scale[4])], inf)) * 2;
+					env = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.9) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = LPF.ar(sig, 1000 + (env * 2000));
+					sig = sig * 0.4;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/a', sig);
+					sig;
+
+
+				});
+			};
+
+			if(a == 1){
+				Ndef(\a, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), Drand([0.25, Dseq([0.125, 0.125], 1)], 1), Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125], inf) * tR * 0.5, 0, Dseq([Drand(scale, 3), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), scale[0], scale[2], Drand([scale[4], Drand(scale, 1)], 1), scale[0], scale[1], Drand(scale, Drand([2, 3, 5], 1))], inf)) * 4;
+					env = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.25 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.9) * tR * 0.5, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = Pulse.ar(freq * 0.5, 0.5).blend(sig, 0.6);
+					sig = LPF.ar(sig, 1300 + (env * 1000));
+					sig = sig * 0.4;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.95, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.5, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/a', sig);
+					sig;
+
+				});
+			};
+
+
+			if(a == 2){
+				Ndef(\a, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25, 0.25, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.125, 0.125, 0.25], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[4], Drand(scale, 1)], 1), scale[0], scale[2], Drand([scale[3], Drand(scale, 1)], 1), Drand([scale[2], Drand(scale, 1)], 1), scale[1], scale[2], Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5], inf)) * 2;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.25 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(1.3, 2.5) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = Pulse.ar(freq * 0.5, 0.5).blend(sig, 0.6);
+					sig = Saw.ar(freq).blend(sig, 0.5);
+					sig = LPF.ar(sig, 2300 + (env * 1000));
+					sig = sig * 0.27;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.6, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/a', sig);
+					sig;
+
+				});
+			};
+
+			if(a == 3){
+				Ndef(\a, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.125, 0.125, 0.25, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.5], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5, 0.25, 1, 0.5], inf)) * 4;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * tR * 0.5, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.5) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq);
+					sig = sig * 0.2 * env;
+					sig = LPF.ar(sig, 2000);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.4, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/a', sig);
+					sig;
+
+				});
+			};
+
+
+			if(a == 4){
+				Ndef(\a, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.5, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.5], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), scale[0], scale[1], scale[3], Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5, 0.25, 1, 0.5], inf)) * 2;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * tR * 0.5, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.5, 0.8) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq);
+					sig = sig * 0.28 * env;
+					sig = LPF.ar(sig, 2000);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.4, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/a', sig);
+					sig;
+
+				});
+			};
+
+			if(b == 0){
+				Ndef(\b, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25], inf) * tR, 0, Dseq([Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, 5), Drand([scale[5], Drand(scale, 1)], 1), scale[2], scale[0], scale[5], scale[6], scale[0], scale[4], Drand(scale, 2)], inf)) * 0.5;
+					env = Duty.kr(Dseq([1, 1, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.4, 1.3) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env)).blend(sig, 0.25);
+					sig = Saw.ar(freq * 0.5, 0.3).blend(sig, 0.7);
+					sig = sig * env;
+					sig = RLPF.ar(sig, 500 + (env * 3000), 0.9);
+					sig = sig * 0.3125;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.8, 0.2), 0.3));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 1.35;
+					sig = Limiter.ar(sig * 0.45, 0.9) * 1.3;
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/b', sig);
+					sig;
+
+				});
+			};
+
+			b = 1;
+
+			if(b == 1){
+				Ndef(\b, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.5, 0.25, 0.125, 0.125], inf) * tR, 0, Dseq([Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, 5), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1),Drand([scale[4], Drand(scale, 1)], 1), Drand(scale, 2)], inf)) * 0.5;
+					env = Duty.kr(Dseq([1, 1, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.4, 1.3) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env)).blend(sig, 0.25);
+					sig = Saw.ar(freq * 0.5, 0.3).blend(sig, 0.7);
+					sig = sig * env;
+					sig = RLPF.ar(sig, 1500 + (env * 2300), 0.9);
+					sig = sig * 0.3125;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.9, 0.2), 0.3));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+
+					sig = Limiter.ar(sig * 0.45, 0.9) * 1.3;
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/b', sig);
+					sig;
+
+				});
+			};
+
+			if(b == 2){
+				Ndef(\b, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.5, 0.25, 0.125, 0.125], inf) * tR * 2, 0, Dseq([Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, 5), scale[4], scale[2], Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), scale[0], Drand([scale[4], Drand(scale, 1)], 1), Drand(scale, 2)], inf)) * 0.5;
+					env = Duty.kr(Dseq([1, 1, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.2, 0.9) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * [1, 2, 1, 2, 3, 4, 1, 2, 1, 1]).sum * 0.18;
+					sig = sig * env;
+					sig = sig * 0.3125;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.9, 0.2), 0.3));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+
+					sig = sig * 1.35;
+					sig = Limiter.ar(sig * 0.45, 0.9) * 1.3;
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/b', sig);
+					sig;
+
+				});
+			};
+
+			if(b == 3){
+				Ndef(\b, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.5, 0.25, 0.125, 0.125], inf) * tR * 0.5, 0, Dseq([Drand([scale[3], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand(scale, 5), scale[0], scale[0], scale[0], scale[0], scale[2], Drand(scale, 5), scale[1]], inf)) * 0.5;
+					env = Duty.kr(Dseq([0.25, 0.25, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.1, 0.5) + LFNoise2.kr(0.3, 0.2).abs * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * [1, 2, 1, 2, 3, 4, 1, 2, 1, 1]).sum * 0.18;
+					sig = Saw.ar(freq).blend(sig, 0.5);
+					sig = sig * env;
+					sig = sig * 0.2125;
+					sig = RLPF.ar(sig, 200 + LFNoise2.kr(0.8, 4500).abs, 0.25 + LFNoise2.kr(0.4, 0.3).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.9, 0.2), 0.3));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+
+					sig = sig * 1.35;
+					sig = Limiter.ar(sig * 0.45, 0.9) * 1.3;
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/b', sig);
+					sig;
+
+				});
+			};
+
+			if(b == 4){
+				Ndef(\b, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.5, 0.25, 0.125, 0.125], inf) * tR * 0.5, 0, Dseq([scale[3], scale[1], scale[1], Drand(scale, 5), scale[0], scale[0], scale[0], scale[0], scale[2], Drand(scale, 5), scale[1]], inf) * Drand([1, 1, 1, 0.5], inf)) * 0.5;
+					env = Duty.kr(Dseq([0.25, 0.25, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.1, 0.5) + LFNoise2.kr(0.3, 0.2).abs * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * [1, 2, 1, 2, 3, 4, 1, 2, 1, 1]).sum * 0.18;
+					sig = Saw.ar(freq).blend(sig, 0.5);
+					sig = sig * 0.2125;
+					sig = RLPF.ar(sig, 200 + LFNoise2.kr(0.8, 4500).abs, 0.25 + LFNoise2.kr(0.4, 0.3).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.9, 0.2), 0.3));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+
+					sig = sig * 1.35;
+					sig = Limiter.ar(sig * 0.45, 0.9) * 1.3;
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/b', sig);
+					sig;
+
+				});
+			};
+
+			if(c == 0){
+				Ndef(\c, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.25, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.5, 0.25, 0.125, 0.125], inf) * tR, 0, Dseq([Drand(scale, 3), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand(scale, Drand([2, 3, 4], 1))], inf)) * 2;
+					env = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.5 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.9) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = LPF.ar(sig, 1000 + (env * 2000));
+					sig = sig * 0.4;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/c', sig);
+					sig;
+
+				});
+			};
+
+			if(c == 1){
+				Ndef(\c, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), 0.25, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125], inf) * tR * 0.5, 0, Dseq([Drand(scale, 3), Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[5], Drand(scale, 1)], 1), Drand(scale, Drand([2, 3, 5], 1))], inf)) * 4;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.25 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.9) * tR * 0.5, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = Pulse.ar(freq * 0.5, 0.5).blend(sig, 0.6);
+					sig = LPF.ar(sig, 1300 + (env * 1000));
+					sig = sig * 0.4;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.95, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.5, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/c', sig);
+					sig;
+
+				});
+			};
+
+
+			if(c == 2){
+				Ndef(\c, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([Drand([0.25, Dseq([0.125, 0.125], 1)], 1), Drand([0.25, Dseq([0.125, 0.125], 1)], 1), Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[4], Drand(scale, 1)], 1), scale[0], Drand([scale[2], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), scale[2], scale[1], Drand([scale[2], Drand(scale, 1)], 1), Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5], inf)) * 2;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * 0.25 * tR, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(1.3, 2.5) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq * (0.98 + (env * 0.02)));
+					sig = LFTri.ar(freq + (sig * 200 * env) * (0.99 + (env * 0.01))).blend(sig, 0.5);
+					sig = sig * env;
+					sig = Pulse.ar(freq * 0.5, 0.5).blend(sig, 0.6);
+					sig = Saw.ar(freq).blend(sig, 0.5);
+					sig = LPF.ar(sig, 2300 + (env * 1000));
+					sig = sig * 0.27;
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.6, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/c', sig);
+					sig;
+
+				});
+			};
+
+			if(c == 3){
+				Ndef(\c, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.125, 0.125, 0.25, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.5], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand([scale[0], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5, 0.25, 1, 0.5], inf)) * 4;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * tR * 0.5, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.3, 0.5) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq);
+					sig = sig * 0.2 * env;
+					sig = LPF.ar(sig, 2000);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.125 * tR, 0.125 * tR), 0.05 * 0.5);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.4, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/c', sig);
+					sig;
+
+				});
+			};
+
+
+			if(c == 4){
+				Ndef(\c, {
+					var env, sig, freq, tr;
+					freq = Duty.kr(Dseq([0.5, Drand([0.25, Dseq([0.125], 2)], 1), 0.125, 0.125, 0.25, 0.25, 0.5], inf) * tR, 0, Dseq([Drand(scale, Drand([8, 5, 1], 1)), Drand([scale[5], Drand(scale, 1)], 1), Drand([scale[4], Drand(scale, 1)], 1), Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[6], Drand(scale, 1)], 1), scale[0], Drand([scale[1], Drand(scale, 1)], 1), Drand([scale[3], Drand(scale, 1)], 1), Drand(scale, Drand([2, 1, 5], 1))], inf) * Drand([2, 1, 0.5, 0.25, 1, 0.5], inf)) * 2;
+					env = Duty.kr(Dseq([0.125, 0.125, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.5], inf) * tR * 0.5, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.5, 0.8) * tR, 1, [-4, 1]), env);
+					sig = SinOsc.ar(freq);
+					sig = sig * 0.28 * env;
+					sig = LPF.ar(sig, 2000);
+					sig = Pan2.ar(sig, LFNoise2.kr(1 + LFNoise2.kr(0.4, 0.2), 0.7));
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.2);
+					sig = sig.blend(DelayN.ar(LPF.ar(sig, 1500), 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(HPF.ar(sig, 500), 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(LPF.ar(HPF.ar(sig, 300), 3000), 0.25 * tR, 0.125 * tR), 0.05);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025);
+					sig = sig.blend(DelayN.ar(BPF.ar(sig, 500), 0.25 * tR, 0.125 * tR), 0.025 * 0.5);
+					sig = sig * 0.8;
+					sig = FreeVerb.ar(sig, 0.4, 0.5, 0.5);
+					sig = Limiter.ar(sig * 0.45, 0.8);
+					tr = Impulse.ar(3);
+					SendReply.ar(tr, '/c', sig);
+					sig;
+
+				});
+			};
+
+			OSCdef(\a, {
+				arg sig;
+				~aC = (sig[3].abs * 20).clip2(1);
+			}, '/a');
+
+			OSCdef(\b, {
+				arg sig;
+				~bC = (sig[3].abs * 20).clip2(1);
+			}, '/b');
+
+			OSCdef(\c, {
+				arg sig;
+				~cC = (sig[3].abs * 20).clip2(1);
+			}, '/c');
+
+
+
+
+			if(d == 0){
+
+				Ndef(\d, {
+					var env, sig, freq;
+					env = Duty.kr(2 * tR, 0, Dseq([1, 0], inf));
+					freq = Duty.kr(4 * tR, 0, Dseq([[scale[3], scale[5]], [scale[2], scale[4]], [scale[1], scale[6]], [scale[0], scale[4]]], inf)) * 2;
+					env = EnvGen.kr(Env([0, 1, 0], [rrand(1.8, 2.5), rrand(1.5, 3.5)] * tR), env);
+					sig = SinOsc.ar(freq, 0, 0.3).sum;
+					sig = SinOsc.ar(freq + (sig * 140), 0, 0.2).sum;
+					sig = sig * env * 0.8;
+					sig = Pan2.ar(sig, -0.2);
+					sig = FreeVerb.ar(sig, 0.5, 0.6, 0.6);
+				});
+
+			};
+
+
+			if(d == 1){
+				Ndef(\d, {
+					var env, sig, freq;
+					env = Duty.kr(2 * tR, 0, Dseq([1, 0], inf));
+					freq = Duty.kr(4 * tR, 0, Dseq([[scale[4], scale[6]], [scale[3], scale[1] * 2], [scale[3], scale[0] * 2], [scale[0], scale[5]]], inf)) * 2;
+					env = EnvGen.kr(Env([0, 1, 0], [1.8, 2.8]), env);
+					sig = SinOsc.ar(freq, 0, 0.3).sum;
+					sig = SinOsc.ar(freq + (sig * 120), 0, 0.2).sum;
+					sig = Pulse.ar(freq, 0.3, 0.2).sum.blend(sig, 0.2);
+					sig = LPF.ar(sig, 1700);
+					sig = HPF.ar(sig, 800);
+					sig = sig * env * 0.8;
+					sig = Pan2.ar(sig, 0.2);
+					sig = FreeVerb.ar(sig, 0.5, 0.6, 0.6);
+				});
+			};
+
+			if(d == 2){
+				Ndef(\d, {
+					var env, sig, freq;
+					env = Duty.kr(2 * tR, 0, Dseq([1, 0], inf));
+					freq = Duty.kr(4 * tR, 0, Dseq([[scale[0], scale[4]], [scale[1], scale[3]], [scale[1], scale[4]], [scale[6], scale[2]]], inf)) * 4;
+					env = EnvGen.kr(Env([0, 1, 0], [1.8, 2.8]), env);
+					sig = SinOsc.ar(freq, 0, 0.3).sum;
+					sig = SinOsc.ar(freq + (sig * 120), 0, 0.2).sum;
+					sig = Pulse.ar(freq, 0.3, 0.2).sum.blend(sig, 0.2);
+					sig = LPF.ar(sig, 1400);
+					sig = HPF.ar(sig, 800);
+					sig = sig * env * 0.75;
+					sig = Pan2.ar(sig, -0.25);
+					sig = FreeVerb.ar(sig, 0.5, 0.6, 0.6);
+				});
+			};
+
+			if(d == 3){
+				Ndef(\d, {
+					var env, sig, freq;
+					env = Duty.kr(2 * tR, 0, Dseq([1, 0], inf));
+					freq = Duty.kr(4 * tR, 0, Dseq([[scale[2], scale[4]], [scale[1], scale[3]], [scale[0], scale[3]], [scale[4], scale[1]]], inf)) * 4;
+					env = EnvGen.kr(Env([0, 1, 0], [1.8, 2.8]), env);
+					sig = SinOsc.ar(freq, 0, 0.3).sum;
+					sig = SinOsc.ar(freq + (sig * 120), 0, 0.2).sum;
+					sig = Pulse.ar(freq, 0.3, 0.2).sum.blend(sig, 0.5 * env);
+					sig = LPF.ar(sig, 400 + (env * 2000));
+					sig = HPF.ar(sig, 800);
+					sig = sig * env * 0.75;
+					sig = Pan2.ar(sig, -0.25);
+					sig = FreeVerb.ar(sig, 0.5, 0.6, 0.6);
+				});
+			};
+
+			if(d == 4){
+				Ndef(\d, {
+					var env, sig, freq;
+					env = Duty.kr(2 * tR, 0, Dseq([1, 0], inf));
+					freq = Duty.kr(4 * tR, 0, Dseq([[scale[4], scale[4] * 0.5], [scale[2], scale[3] * 0.5], [scale[0], scale[4]], [scale[2] * 0.5, scale[1]]], inf)) * 4;
+					env = EnvGen.kr(Env([0, 1, 0], [1.8, 2.8]), env);
+					sig = SinOsc.ar(freq, 0, 0.3).sum;
+					sig = SinOsc.ar(freq + (sig * 220), 0, 0.2).sum;
+					sig = Pulse.ar(freq, 0.3, 0.2).sum.blend(sig, 0.9 * env);
+					sig = LPF.ar(sig, 400 + (env * 2000));
+					sig = HPF.ar(sig, 800);
+					sig = sig * env * 0.75;
+					sig = Pan2.ar(sig, 0.125);
+					sig = FreeVerb.ar(sig * 0.97, 0.6, 0.6, 0.6);
+				});
+			};
+
+
+
+			if(e == 0){
+
+				Ndef(\e, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, 0.09, 1, rrand(-5.0, 0.2)), env);
+					sig = SinOsc.ar(10 + (env * 230) + (LPF.ar(RLPF.ar(WhiteNoise.ar(180), 400).softclip * 50, 500)), 0, 1) * env;
+					sig = (sig * 1.25).softclip * 1.05;
+					sig = LPF.ar(sig, 400 + (env * 1000));
+					sig = Pan2.ar(sig, 0) * 0.5 * 0.9;
+				});
+
+			};
+
+
+			if(e == 1){
+
+				Ndef(\e, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, 0.18, 1, rrand(-9.0, 0.2)), env);
+					sig = SinOsc.ar(5 + (env * 200) + (LPF.ar(RLPF.ar(WhiteNoise.ar(180), 200).softclip * 50, 300)), 0, 1);
+					sig = sig * env;
+					sig = (sig * 2.45).softclip;
+
+					sig = LPF.ar(sig, 950 + (env * 2000));
+					sig = HPF.ar(sig, 50);
+					sig = sig * 1.18;
+					sig = LPF.ar(sig, 4500);
+					sig = Pan2.ar(sig, 0) * 0.32;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 100), 500), 1.0, 0.9, 0.2).blend(sig, 0.8) * 0.9;
+				});
+
+			};
+
+
+
+			if(e == 2){
+
+				Ndef(\e, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, 0.225, 1, rrand(-7.0, -0.2) - 2.0), env);
+					sig = SinOsc.ar(40 + (env * 220) + (LPF.ar(RLPF.ar(WhiteNoise.ar(180), 200).softclip * 50, 300)), 0, 1) * env;
+					sig = (sig * 1.1).softclip;
+					sig = LPF.ar(sig, 400 + (env * 2000));
+					sig = LPF.ar(sig, 4500);
+					sig = Pan2.ar(sig, 0) * 0.58;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 400 - (env * 150)), 1000 + (env * 2000)), 1.0, 0.9, 0.5).blend(sig, 0.75) * 0.9;
+				});
+
+			};
+
+
+			if(e == 3){
+
+				Ndef(\e, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.175, 1, [-4.5, -0.5]), env);
+					sig = SinOsc.ar(5 + (env * 150) + (LPF.ar(RLPF.ar(WhiteNoise.ar(20 * env), 20 * env).softclip * 20 * env, 300 * env)), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 800 + (env * 200));
+					sig = LPF.ar(sig, 4500);
+					sig = Pan2.ar(sig, 0) * 0.5;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 400 - (env * 150)), 1000 + (env * 2000)), 1.0, 0.9, 0.5).blend(sig, 0.92) * 0.9;
+				});
+
+			};
+
+
+			if(e == 4){
+
+				Ndef(\e, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0, 0, 0, 0, 0, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.18, 1, [-4.5, -0.5]), env);
+					sig = SinOsc.ar(0.4 + (env * 150) + (LPF.ar(RLPF.ar(WhiteNoise.ar(20 * env), 20 * env).softclip * 20 * env, 300 * env)), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 200 + (env * 200));
+					sig = LPF.ar(sig, 4500);
+					sig = (sig * 50).floor;
+					sig = LPF.ar(sig, 1000);
+					sig = sig * 0.034;
+					sig = sig.softclip;
+					sig = Pan2.ar(sig, 0) * 0.5;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 400 - (env * 150)), 1000 + (env * 2000)), 1.0, 0.9, 0.5).blend(sig, 0.98) * 0.9;
+				});
+
+			};
+
+
+
+			if(f == 0){
+
+				Ndef(\f, {
+					var env, sig;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([0, Drand([1, 0], 1), 0, 0, 1, 0, Drand([1, 0], 1), 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.175, 1, [-4.5, -0.5]), env);
+					sig = SinOsc.ar(200 + (env * 150) + (LPF.ar(RLPF.ar(WhiteNoise.ar(20 * env), 2000 * env).softclip * 20 * env, 300 * env)), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 4500);
+					sig = sig.blend(WhiteNoise.ar * env, 0.05);
+					sig = sig.softclip;
+					sig = Pan2.ar(sig,  LFNoise2.kr(0.825, 0.35)) * 0.5;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 400 - (env * 150)), 1000 + (env * 2000)), 1.0, 0.9, 0.5).blend(sig, 0.9) * 0.9;
+				});
+
+			};
+
+			if(f == 1){
+
+				Ndef(\f, {
+					var env, sig;
+					env = Duty.kr(0.125 *  tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.075, 1, [-4.5, -0.5]), env);
+					sig = SinOsc.ar(180 + (env * 130) + (LPF.ar(RLPF.ar(WhiteNoise.ar(20 * env), 2000 * env).softclip * 20 * env, 300 * env)), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 4500);
+					sig = sig.blend(WhiteNoise.ar * env, 0.025);
+					sig = sig.softclip;
+					sig = Pan2.ar(sig,  LFNoise2.kr(1.0)) * 0.5;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 400 - (env * 150)), 2000 + (env * 2000)), 1.0, 0.6, 0.5).blend(sig, 0.9) * 0.9;
+				});
+
+			};
+
+
+			if(f == 2){
+
+				Ndef(\f, {
+					var env, sig, in;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([0, Drand([1, 0], 1), 0, 0, Drand([1, 0], 1), 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.05, 1, [-7.5, -0.5]), env);
+					in = LocalIn.ar * 1700;
+					sig = SinOsc.ar(200 + (env * 150) + (in * env), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 4500);
+					LocalOut.ar(sig);
+					sig = sig.blend(WhiteNoise.ar * env, 0.075);
+					sig = sig.softclip;
+					sig = Pan2.ar(sig, LFNoise2.kr(0.5, 0.5)) * 0.3;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 600 - (env * 150)), 4000 + (env * 2000)), 1.0, 0.6, 0.5).blend(sig, 0.7) * 0.9;
+				});
+
+			};
+
+			if(f == 3){
+
+				Ndef(\f, {
+					var env, sig, in;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([0, 0, 0, 0, 1, 0, 0, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.35, 1, [-7.5, -0.5]), env);
+					in = LocalIn.ar * 2700;
+					sig = SinOsc.ar(200 + (env * 150) + (in * env), 0, 1) * env;
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 2000 + (env * 200));
+					sig = (sig * 50).floor.blend(sig, 0.5);
+					sig = sig * env * 0.15;
+					sig = (sig * 0.3).softclip;
+					sig = LPF.ar(sig, 4500);
+					LocalOut.ar(sig);
+					sig = sig.blend(WhiteNoise.ar * env, 0.015);
+					sig = sig.softclip;
+					sig = Pan2.ar(sig,  0) * 0.3;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 600 - (env * 150)), 4000 + (env * 2000)), 1.0, 0.6, 0.5).blend(sig, 0.7) * 0.9;
+				});
+
+			};
+
+
+			if(f == 4){
+
+				Ndef(\f, {
+					var env, sig, in;
+					env = Duty.kr(0.125 * tMul * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([0, 1, 0, 0, 0, 0, 1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.001, 0.25, 1, [-7.5, -2.5]), env);
+					in = LocalIn.ar * 2700;
+					sig = SinOsc.ar(200 + (env * 150) + (in * env * 0.3), 0, 1) * env;
+					sig = sig.blend(SinOsc.ar(100 + (env * 75), 0, 1) * env, 0.5);
+					sig = (sig * 2.5).softclip * env;
+					sig = LPF.ar(sig, 2000 + (env * 200));
+					sig = sig * env * 0.15;
+					sig = (sig * 25.3).softclip;
+					sig = sig * 0.2;
+					sig = LPF.ar(sig, 4500);
+					LocalOut.ar(sig);
+					sig = sig.blend(WhiteNoise.ar * env, 0.15);
+					sig = sig.softclip;
+					sig = Pan2.ar(sig,  LFNoise2.kr(1.25, 0.25)) * 0.3;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 600 - (env * 150)), 4000 + (env * 2000)), 1.0, 0.6, 0.5).blend(sig, 0.6) * 0.9;
+				});
+
+			};
+
+
+			if(g == 0){
+				Ndef(\g, {
+					var env, sig;
+					env = Duty.kr(0.125 * [0.5, 1.0].choose * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.06, 0.6) + LFNoise2.kr(SinOsc.ar(0.4), 0.1).abs), env);
+					sig = Pulse.ar([root.midicps * 2, root.midicps * 2 + 0.7], 0.45, 0.1).sum * env;
+					sig = LPF.ar(sig, 7000);
+					sig = HPF.ar(sig, 1200);
+					sig = WhiteNoise.ar(0.1 * env).blend(sig, 0.8)  * 0.7;
+					sig = Pan2.ar(sig, LFNoise2.kr(0.9, 0.3));
+					sig = FreeVerb.ar(DelayN.ar(HPF.ar(LPF.ar(sig, 6000), 1000), 0.01, 0.01), 0.5, 0.1, 0.2).blend(sig, 0.7) * 0.8;
+				});
+
+			};
+
+			if(g == 1){
+				Ndef(\g, {
+					var env, sig;
+					env = Duty.kr(0.125 * [0.5, 1.0].choose * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.06, 0.6) + LFNoise2.kr(SinOsc.ar(0.4), 0.4).abs), env);
+					sig = Pulse.ar([root.midicps * 2, root.midicps * 2 + 0.7], 0.45, 0.1).sum * env;
+					sig = LPF.ar(sig, 7000);
+					sig = HPF.ar(sig, 1200);
+					sig = WhiteNoise.ar(0.1 * env).blend(sig, 0.8)  * 0.7;
+					sig = HPF.ar(sig, 500);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.5, 0.6));
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.25 * tR), 0.2);
+					sig = FreeVerb.ar(DelayN.ar(HPF.ar(LPF.ar(sig, 6000), 1000), 0.01, 0.01), 0.5, 0.1, 0.2).blend(sig, 0.7) * 0.8;
+				});
+
+			};
+
+			if(g == 2){
+				Ndef(\g, {
+					var env, sig;
+					env = Duty.kr(0.125 * [0.5, 1.0].choose * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Drand([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.06, 0.09) + LFNoise2.kr(SinOsc.ar(0.4), 0.4).abs), env);
+					sig = SinOsc.ar(root.midicps * 4 * [1, 2, 3, 1.3, 4.3, 3.04, 8.3, 10.2, 11.1, 11.09, 12.5, 12.45, 8.22, 10, 10.1, 11, 11.2, 11.12, 11.4, 9.86, 9.91], 0, 0.03).sum * env;
+					sig = HPF.ar(sig, 2200);
+					sig = WhiteNoise.ar(0.1 * env).blend(sig, 0.4)  * 0.6;
+					sig = HPF.ar(sig, 500);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.5, 0.6));
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.25 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.25 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.25 * tR), 0.1);
+					sig = FreeVerb.ar(DelayN.ar(HPF.ar(LPF.ar(sig, 6000), 1000), 0.01, 0.01), 0.5, 0.1, 0.2).blend(sig, 0.7) * 0.8;
+				});
+
+			};
+
+			if(g == 3){
+				Ndef(\g, {
+					var env, sig;
+					env = Duty.kr(0.125 * [0.5, 1.0].choose * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.06, 0.09) + LFNoise2.kr(SinOsc.ar(0.4), 0.4).abs), env);
+					sig = SinOsc.ar(root.midicps * 4 * [1, 2, 3, 1.3, 4.3, 3.04, 8.3, 10.2, 11.1, 11.09, 12.5, 12.45, 8.22, 10, 10.1, 11, 11.2, 11.12, 11.4, 9.86, 9.91], 0, 0.03).sum * env;
+					sig = HPF.ar(sig, 2200);
+					sig = WhiteNoise.ar(0.1 * env).blend(sig, 0.4);
+					sig = HPF.ar(sig, 500);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.5, 0.6))  * 0.6;
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.14);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.09);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.1);
+					sig = FreeVerb.ar(DelayN.ar(HPF.ar(LPF.ar(sig, 6000), 1000), 0.01, 0.01), 0.5, 0.1, 0.2).blend(sig, 0.7) * 0.8;
+				});
+
+			};
+
+			if(g == 4){
+				Ndef(\g, {
+					var env, sig;
+					env = Duty.kr(0.125 * [0.5, 1.0].choose * tR, 0, Dseq([1, 0], inf));
+					env = Demand.kr(env, 0, Dseq([1, 0], inf));
+					env = EnvGen.kr(Env.perc(0.01, rrand(0.06, 0.09) + LFNoise2.kr(SinOsc.ar(0.4), 0.4).abs), env);
+					sig = SinOsc.ar(root.midicps * 4 * [1, 2, 3, 1.3, 4.3, 3.04, 8.3, 10.2, 11.1, 11.09, 12.5, 12.45, 8.22, 10, 10.1, 11, 11.2, 11.12, 11.4, 9.86, 9.91], 0, 0.03).sum * env;
+					sig = HPF.ar(sig, 1200);
+					sig = WhiteNoise.ar(0.1 * env).blend(sig, 0.7) * 0.6;
+					sig = HPF.ar(sig, 500);
+					sig = Pan2.ar(sig, LFNoise2.kr(1.5, 1.0));
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.14);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.09);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.08);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.1);
+					sig = sig.blend(DelayN.ar(sig, 0.25 * tR, 0.125 * tR), 0.1);
+					sig = FreeVerb.ar(DelayN.ar(HPF.ar(LPF.ar(sig, 6000), 1000), 0.01, 0.01), 0.5, 0.1, 0.2).blend(sig, 0.7) * 0.8;
+				});
+
+			};
+
+			Ndef(\visual, {
+				var sig;
+				sig = [Ndef(\a).ar, Ndef(\b).ar, Ndef(\c).ar, Ndef(\d).ar, Ndef(\e).ar, Ndef(\f).ar, Ndef(\g).ar] * 0.5;
+				sig = sig.sum;
+				sig = [sig, DelayN.ar(sig, 0.025, 0.025)];
+				Out.ar(~visual, sig);
+
+			});
+
+			Ndef(\visual).play;
+
+
+
+			if(changeBool <= 0){
+				Ndef(\a).fadeTime_(0.8);
+				Ndef(\b).fadeTime_(0.8);
+				Ndef(\c).fadeTime_(0.8);
+				Ndef(\d).fadeTime_(0.8);
+				Ndef(\e).fadeTime_(0.03);
+				Ndef(\f).fadeTime_(0.03);
+				Ndef(\g).fadeTime_(0.03);
+			}{
+				Ndef(\a).fadeTime_(0.1);
+				Ndef(\b).fadeTime_(0.1);
+				Ndef(\c).fadeTime_(0.1);
+				Ndef(\d).fadeTime_(0.1);
+				Ndef(\e).fadeTime_(0.1);
+				Ndef(\f).fadeTime_(0.1);
+				Ndef(\g).fadeTime_(0.1);
+			};
+
+
+
+			Ndef(\a).play;
+			Ndef(\b).play;
+			Ndef(\c).play;
+			Ndef(\d).play;
+			Ndef(\e).play;
+			Ndef(\f).play;
+			Ndef(\g).play;
+			if(bassBool <= 0){
+				Ndef(\b).free;
+			};
+
+			if(cBool <= 0){
+				Ndef(\c).free;
+			};
+
+			if(padBool <= 0){
+				Ndef(\d).free;
+			};
+
+			if(kickBool <= 0){
+				Ndef(\e).free;
+			};
+
+			if(snareBool <= 0){
+				Ndef(\f).free;
+			};
+
+			if(hatBool <= 0){
+				Ndef(\g).free;
+			};
+
+			if(drumBool <= 0){
+				Ndef(\e).free;
+				Ndef(\f).free;
+				Ndef(\g).free;
+			};
+
+
+
+		};
+
+
+		Task({
+			scope = Server.local.scope;
+			scope.bus_(~visual);
+
+			loop{
+
+				scope.scopeView.waveColors_([Color(~aC, ~bC, ~cC)]);
+
+				wait(0.4);
+			};
+		}).play(AppClock);
+
+		Task({
+			loop{
+
+				//~track = track;
+				track.();
+				wait(
+					[8, 32, 16, 32, 16, 32, 64, 128, 256, 256, 128, 128, 128, 64, 32, 128, 64].choose * tR);
+
+			};
+		}).play;
+
+
+		//~track.();
+
+
+
+
+
+
+	}
+}
 
 
 
