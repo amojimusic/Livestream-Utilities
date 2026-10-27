@@ -1,6 +1,5 @@
+
 Livestream {
-
-
 
 	classvar kickName = \kick;
 	classvar snareName = \snare;
