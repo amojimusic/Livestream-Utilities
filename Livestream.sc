@@ -1,5 +1,6 @@
-
 Livestream {
+
+
 
 	classvar kickName = \kick;
 	classvar snareName = \snare;
@@ -3894,14 +3895,7 @@ Livestream42 : Livestream {
 			melody = [tSig * [1, 2, 4].choose, tSig * [1, 2, 4].choose, rrand(3, 28)].choose;
 			chords = Array.fill([4, 8].choose, {[scale[rrand(0, 6)], scale[rrand(0, 6)], scale[rrand(0, 6)]]};);
 
-			Ndef(\visual, {
-				var sig;
-				sig = [In.ar(0, 2).sum, Ndef(\acid).ar.sum, Ndef(\lead).ar.sum, Ndef(\lead2).ar.sum, Ndef(\lead3).ar.sum].sum;
-				sig = [sig, DelayN.ar(sig, 0.025, 0.025)];
-				Out.ar(~visual, sig);
-				sig = sig * 0.0001;
-				Out.ar(~visual, sig);
-			});
+
 
 
 
@@ -4254,9 +4248,16 @@ Livestream42 : Livestream {
 				~aC = (sig[3].abs * 20).clip2(1.0);
 			}, '/lead2');
 
+			Ndef(\visual, {
+				var sig;
+				sig = [In.ar(0, 2).sum, Ndef(\acid).ar.sum, Ndef(\lead).ar.sum, Ndef(\lead2).ar.sum, Ndef(\lead3).ar.sum].sum;
+				sig = [sig, DelayN.ar(sig, 0.025, 0.025)];
+				Out.ar(~visual, sig);
+				sig = sig * 0.0001;
+				Out.ar(~visual, sig);
+			});
 
 
-			Ndef(\visual).play;
 			Ndef(\reverb).play;
 			Ndef(\distortion).play;
 
@@ -4272,6 +4273,8 @@ Livestream42 : Livestream {
 			Pdef(\hat).play(clock);
 			Pdef(\pluck).play(clock);
 			Pdef(\perc).play(clock);
+			Ndef(\visual).free;
+			Ndef(\visual).play;
 
 
 
