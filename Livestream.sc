@@ -4421,18 +4421,18 @@ Livestream42_1 : Livestream {
 				percNum = 1;
 			};
 
-			drumBool = rrand(-2, 8);
+			drumBool = rrand(-2, 9);
 			acidBool = rrand(-2, 3);
 			lead2Bool = rrand(-2, 3);
 			padBool = rrand(-2, 3);
-			kickBool = rrand(-1, 3);
-			snareBool = rrand(-1, 3);
-			snare2Bool = rrand(-1, 3);
-			hatBool = rrand(-1, 3);
+			kickBool = rrand(-1, 4);
+			snareBool = rrand(-1, 4);
+			snare2Bool = rrand(-1, 4);
+			hatBool = rrand(-1, 4);
 			pluckBool = rrand(-2, 3);
 			percBool = rrand(-2, 3);
 			bassBool = rrand(-1, 3);
-			repattern = rrand(-6, 3);
+			repattern = rrand(-5, 3);
 			chordBool = rrand(-3, 4);
 
 			if(bassBool >= 1){
@@ -4552,6 +4552,7 @@ Livestream42_1 : Livestream {
 					sig = RLPF.ar(sig, 840 + (env * 2000), 0.85);
 					sig = sig * env;
 					sig = Pan2.ar(sig, \pan.kr(0));
+					SendReply.ar(Impulse.ar(0.3), '/acid', sig);
 					Out.ar(\out.kr(0), sig);
 				}).add;
 
@@ -4587,6 +4588,7 @@ Livestream42_1 : Livestream {
 					sig = Pan2.ar(sig * env, \pan.kr(0.0));
 					sig = sig * 0.5;
 					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead', sig);
 					Out.ar(\out.kr(0), sig);
 				}).add;
 				);
@@ -4612,6 +4614,7 @@ Livestream42_1 : Livestream {
 					sig = sig * 0.5;
 					sig = sig * 0.685;
 					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead2', sig);
 					Out.ar(\out.kr(0), sig * 0.1);
 					Out.ar(0, sig * 0.9);
 				}).add;
@@ -4639,6 +4642,7 @@ Livestream42_1 : Livestream {
 					sig = sig * 0.5;
 					sig = sig * 0.5;
 					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead', sig);
 					Out.ar(\out.kr(0), sig) * 0.5;
 					Out.ar(~reverb, sig * 0.15);
 				}).add;
@@ -4732,6 +4736,7 @@ Livestream42_1 : Livestream {
 					sig = sig * 0.5;
 					sig = sig * 0.85;
 					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead2', sig);
 					Out.ar(\out.kr(0), sig);
 				}).add;
 				);
@@ -4809,7 +4814,7 @@ Livestream42_1 : Livestream {
 					sig = sig * 0.5;
 					sig = sig * 0.85;
 					sig = sig * 0.45;
-					SendReply.ar(Impulse.ar(0.3), '/lead', sig);
+					SendReply.ar(Impulse.ar(0.3), '/lead2', sig);
 					sig;
 				}));
 
@@ -4837,7 +4842,7 @@ Livestream42_1 : Livestream {
 					\instrument, Pseq(snare2Array, inf),
 					\dur, drumDur,
 					\mul, 0.95 * 1.15,
-					\pan, Pwhite(-1.0, 1.0, inf),
+					\pan, Pwhite(-1.0, 1.0, inf) * rrand(0.0, 1.0),
 					\out, ~distortion
 				));
 
@@ -4890,7 +4895,7 @@ Livestream42_1 : Livestream {
 					\dur, cD,
 					\dec, 2.125 * tSig,
 					\mul, rrand(0.09, 0.14),
-					\freq, Pseq(chords, inf) * [2, 4].choose,
+					\freq, Pseq(chords, inf) * [2, 4, 8, 4].choose,
 				));
 
 
@@ -4906,17 +4911,17 @@ Livestream42_1 : Livestream {
 
 				OSCdef(\acid, {
 					arg sig;
-					~aC = (sig[3].abs * 20).clip2(1.0);
+					~aC = (sig[3].abs * 35).clip2(1.0);
 				}, '/acid');
 
 				OSCdef(\lead, {
 					arg sig;
-					~bC = (sig[3].abs * 20).clip2(1.0);
+					~bC = (sig[3].abs * 35).clip2(1.0);
 				}, '/lead');
 
 				OSCdef(\lead2, {
 					arg sig;
-					~aC = (sig[3].abs * 20).clip2(1.0);
+					~aC = (sig[3].abs * 35).clip2(1.0);
 				}, '/lead2');
 
 				Ndef(\visual, {
@@ -5017,7 +5022,7 @@ Livestream42_1 : Livestream {
 		Task({
 			loop{
 				genLoop.();
-				wait(tSig * [8, 4, 8, 8, 4, 4, 4, 16, 32, 8, 16, 8, 4, 8, 16].choose);
+				wait(tSig * [8, 4, 8, 4, 8, 8, 4, 4, 4, 16, 32, 8, 4, 4, 4, 8, 16, 8, 4, 8, 16].choose);
 			}
 		}).play(clock);
 	}
