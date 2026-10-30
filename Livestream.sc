@@ -3772,6 +3772,7 @@ Livestream42 : Livestream {
 		~bC = 0.5;
 		~cC = 0.5;
 
+
 		genLoop = {
 
 
@@ -4370,7 +4371,7 @@ Livestream42_1 : Livestream {
 		~bC = 0.5;
 		~cC = 0.5;
 		first = 1;
-		cD = 4;
+
 
 		genLoop = {
 
@@ -4538,7 +4539,12 @@ Livestream42_1 : Livestream {
 
 			melody = [tSig * [1, 2, 4].choose, tSig * [1, 2, 4].choose, rrand(3, 28)].choose;
 
-			chords = [[[scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]], [[scale[2], scale[4], scale[6]] [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]], [[scale[0], scale[2], scale[4]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[2], scale[4], scale[6]]], [[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]], [[scale[2], scale[4], scale[6]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[0], scale[2], scale[4]]]].choose;
+			chords = [[[scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
+		[[scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]],
+		[[scale[0], scale[2], scale[4]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[2], scale[4], scale[6]]],
+		[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
+		[[scale[2], scale[4], scale[6]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[0], scale[2], scale[4]]]].choose;
+
 
 			if((repattern >= 1) || (first >= 1)){
 
