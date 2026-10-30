@@ -4455,6 +4455,7 @@ Livestream42_1 : Livestream {
 						sig = sig.blend(Saw.ar(freq, 0.4), rrand(0.0, 1.0)) * 0.8;
 						sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
 						sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
+						sig = sig * rrand(0.95, 0.6);
 						sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
 						sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.85;
 						sig = sig * env * rrand(0.6, 1.05);
@@ -4462,6 +4463,7 @@ Livestream42_1 : Livestream {
 						sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.35, 0.8));
 						sig = Pan2.ar(sig, LFNoise2.kr(rrand(0.15, 0.7), 0.3));
 						sig = sig * 0.7;
+						sig = sig * 0.45;
 						SendReply.ar(Impulse.ar(0.3), '/acid', sig);
 						sig;
 					}));
@@ -4753,6 +4755,7 @@ Livestream42_1 : Livestream {
 					sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
 					sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
 					sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
+					sig = sig * rrand(0.95, 0.6);
 					sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.85;
 					sig = sig * env * rrand(0.6, 1.05);
 					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.5, 0.9));
