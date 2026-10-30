@@ -4351,7 +4351,674 @@ Livestream42 : Livestream {
 
 
 
+Livestream42_1 : Livestream {
 
+	*play {
+		var tuning, scale, tSig, clock, time, drumArray, kickArray, snareArray, snareNum, snare2Num, snare2Array, kickNum, index, drumDur, hatArray, genLoop, drumBool, acidBool, lead2Bool, melody, chords, fRatio, tRatio, padBool, kickBool, snareBool, snare2Bool, hatBool, tempBool, scaleBool, pluckBool, scope, percArray, percNum, percBool, bassBool, repattern, acidR, first, chordBool, tSigBool, cD;
+
+
+		~visual = Bus.audio(Server.local, 2);
+		~reverb = Bus.audio(Server.local, 2);
+		~distortion = Bus.audio(Server.local, 2);
+
+
+		scope = Server.local.scope;
+		scope.bus_(~visual);
+
+
+		~aC = 0.5;
+		~bC = 0.5;
+		~cC = 0.5;
+		first = 1;
+		cD = 4;
+
+		genLoop = {
+
+
+			scaleBool = rrand(-8, 2);
+			if((scaleBool >= 1) || (first >= 1)){
+				~tuning = TuningArray.edo(rrand(45.5, 52.8), 38);
+				tuning = ~tuning;
+				~scale = [tuning[0], tuning[6], tuning[11], tuning[16], tuning[21], tuning[[22, 25, 25, 28, 28, 28, 28, 23, 25, 28].choose], tuning[33]];
+				scale = ~scale;
+			};
+			tuning = ~tuning;
+			scale = ~scale;
+			fRatio = scale[4]/scale[0];
+			tRatio = scale[2]/scale[0];
+
+			tempBool = rrand(-8, 2);
+			if((tempBool >= 1)|| (first >= 1)){
+
+				~time = rrand(60.0, 125.0)/60;
+				time = ~time;
+				~clock = TempoClock(time);
+				clock = ~clock;
+			};
+			tSigBool = rrand(-9, 2);
+			if((tSigBool >= 1) || (first >= 1)){
+				~tSig = rrand(3, 13);
+				tSig = ~tSig;
+			};
+			tSig = ~tSig;
+			time = ~time;
+			clock = TempoClock(time);
+			drumArray = Array.fill(tSig * [4, 8, 16].choose, {rrand(0, 4)});
+			hatArray = Array.fill(drumArray.size, {rrand(0, 1)});
+			kickNum = drumArray[0];
+			if(kickNum == 0){
+				snareNum = 1;
+			}{
+				snareNum = 0;
+			};
+
+			snare2Num = 2;
+			if(kickNum == 2){
+				snare2Num = 1;
+			};
+			percNum = 3;
+			if(kickNum == 3){
+				percNum = 1;
+			};
+
+			drumBool = rrand(-2, 8);
+			acidBool = rrand(-2, 3);
+			lead2Bool = rrand(-2, 3);
+			padBool = rrand(-2, 3);
+			kickBool = rrand(-1, 3);
+			snareBool = rrand(-1, 3);
+			snare2Bool = rrand(-1, 3);
+			hatBool = rrand(-1, 3);
+			pluckBool = rrand(-2, 3);
+			percBool = rrand(-2, 3);
+			bassBool = rrand(-1, 3);
+			repattern = rrand(-6, 3);
+			chordBool = rrand(-3, 4);
+
+			if(bassBool >= 1){
+				acidR = 2;
+				if(repattern <= 0){
+					(Ndef(\acid, {
+						var env, freq, sig, fb;
+						env = Impulse.kr(time * [2, 4, 8, 4, 4, 4, 1].choose);
+						env = EnvGen.kr(Env.perc(0.01, 0.25 + LFNoise2.kr(rrand(0.05, 1.5), 4.5).abs), env);
+						freq = Impulse.kr(time * [2, 4, 8, 4, 4, 4].choose) * LFNoise2.kr(20.3, 7.15).abs.floor;
+						freq = Demand.kr(freq, 0, Dseq(Array.fill(melody, {scale[rrand(0, 6)] * [0.25, 0.5, 1, 2].choose}), inf)) * 0.5 * acidR;
+						sig = SinOsc.ar(freq, 0, 0.4);
+						sig = sig.blend(Saw.ar(freq, 0.4), rrand(0.0, 1.0)) * 0.8;
+						sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
+						fb = DelayN.ar(sig, 0.0002, 0.0002);
+						sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
+						sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1);
+						sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
+						sig = SinOsc.ar(freq, 0, 0.4).blend(sig, rrand(0.0, 1.0));
+						sig = sig.blend(Saw.ar(freq, 0.4), rrand(0.0, 1.0)) * 0.8;
+						sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
+						sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
+						sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
+						sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.85;
+						sig = sig * env * rrand(0.6, 1.05);
+						sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.5, 0.9));
+						sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.35, 0.8));
+						sig = Pan2.ar(sig, LFNoise2.kr(rrand(0.15, 0.7), 0.3));
+						sig = sig * 0.7;
+						SendReply.ar(Impulse.ar(0.3), '/acid', sig);
+						sig;
+					}));
+				};
+			}{
+				acidR = 1;
+			};
+
+
+			index = 0;
+			kickArray = Array.fill(drumArray.size, {
+				var sym;
+				if((drumArray[index] == kickNum) || (drumArray[index] == 4)){
+					sym = \kick;
+				}{
+					sym = \rest;
+				};
+				index = index + 1;
+				sym;
+			});
+
+			index = 0;
+			snareArray = Array.fill(drumArray.size, {
+				var sym;
+				if(drumArray[index] == snareNum){
+					sym = \snare;
+				}{
+					sym = \rest;
+				};
+				index = index + 1;
+				sym;
+			});
+
+			index = 0;
+			snare2Array = Array.fill(drumArray.size, {
+				var sym;
+				if(drumArray[index] == snare2Num){
+					sym = \snare2;
+				}{
+					sym = \rest;
+				};
+				index = index + 1;
+				sym;
+			});
+
+			index = 0;
+			hatArray = Array.fill(hatArray.size, {
+				var sym;
+				if(hatArray[index] == 1){
+					sym = \hat;
+				}{
+					sym = \rest;
+				};
+				index = index + 1;
+				sym;
+			});
+
+			index = 0;
+			percArray = Array.fill(drumArray.size, {
+				var sym;
+				if(drumArray[index] == percNum){
+					sym = \perc;
+				}{
+					sym = \rest;
+				};
+				index = index + 1;
+				sym;
+			});
+
+
+
+
+			melody = [tSig * [1, 2, 4].choose, tSig * [1, 2, 4].choose, rrand(3, 28)].choose;
+
+			chords = [[[scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]], [[scale[2], scale[4], scale[6]] [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]], [[scale[0], scale[2], scale[4]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[2], scale[4], scale[6]]], [[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]], [[scale[2], scale[4], scale[6]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[0], scale[2], scale[4]]]].choose;
+
+			if((repattern >= 1) || (first >= 1)){
+
+				first = 0;
+
+				SynthDef.new(\bass, {
+					var env, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(2.0), \am.kr(1.0)).kr(2);
+					sig = Pulse.ar(\freq.kr(440), 0.5, \mul.kr(1.0));
+					sig = SinOsc.ar(\freq.kr, 0, \mul.kr).blend(sig, 0.4);
+					sig = RLPF.ar(sig, 840 + (env * 2000), 0.85);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					Out.ar(\out.kr(0), sig);
+				}).add;
+
+
+
+
+				(Ndef(\reverb, {
+					var sig;
+					sig = In.ar(~reverb, 2);
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 350), 1500), 1.0, 0.6, 0.3).blend(sig, rrand(0.1, 0.6));
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 350), 1500), 1.0, 0.6, 0.3).blend(sig, rrand(0.1, 0.6)) * 1.25;
+					Out.ar(0, sig);
+				}));
+
+				Ndef(\reverb).fadeTime = 3.5;
+
+				(Ndef(\distortion, {
+					var sig;
+					sig = In.ar(~distortion, 2);
+					sig = MojiDistort2.ar(sig, 0.2, 0.1, 0.1, 0.2, 0.1, 0.3);
+					sig = MojiDistort2.ar(sig, 0.8, 0.1, 0.1, 0.2, 0.1, 0.3);
+					sig = MojiDistort2.ar(sig, 0.3, 0.3, 0.1, 0.2, 0.1, 0.3);
+					sig = MojiDistort2.ar(sig, 0.1, 0.01, 0.01, 0.01, 0.01, 0.01) * 0.6;
+					Out.ar(0, sig);
+				}));
+
+				(SynthDef(\pad, {
+					var env, sig, mod;
+					env = Env.perc(\atk.kr(2.5), \dec.kr(2.0), \am.kr(1.0), [3.0, 2.0]).kr(2);
+					mod = SinOsc.ar(\freq.kr(440) * fRatio * 2, 0, \mmul.kr(1.0));
+					sig = SinOsc.ar(\freq.kr + (mod * 250) , (0 + (mod * 0.2 * env)).clip2(0.99), \mul.kr(1.0)) * 0.8;
+					sig = sig.blend(Saw.ar(\freq.kr, \mul.kr), 0.1);
+					sig = Pan2.ar(sig * env, \pan.kr(0.0));
+					sig = sig * 0.5;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig);
+				}).add;
+				);
+
+				(SynthDef(\kick, {
+					var env, sig;
+					env = Env.perc(0.01, 0.38, \am.kr(1.0), -5.5).kr(2);
+					sig = SinOsc.ar(0.3 + (env * 100), 0, \mul.kr(1.0));sig = sig * 0.5;
+					sig = sig * env * 1.1;
+					sig = ((sig * 2).floor * 0.5).blend(sig, 0.975 + rrand(0.0, 0.025));
+					sig = MojiDistort2.ar(sig, 0.35, 0.2, 3);
+					sig = MojiCompressor.ar(sig, 0.5, 0.7, 1.5, 0.05, 0.03, 1.35);
+					sig = MojiDistort2.ar(sig, 0.3, 0.01, 0.01, 0.02, 0.1, 0.1);
+					sig = Pan2.ar(sig, \pan.kr(0));
+					sig = MojiDistort2.ar(sig, 0.4, 0.03, 0.08, 0.1);
+					sig = MojiDistort2.ar(sig, 0.3, 0.03, 0.08, 0.15, 0.5, 1);
+					sig = ((sig * 3).floor * 0.25).blend(sig, (0.975 + rrand(0.0, 0.025) * 1.4).clip2(1.0));
+					sig = sig * env * 0.8;
+					sig = MojiDistort2.ar(sig, 0.9, 0.02, 0.02, 0.02, 0.02, 1);
+					sig = RLPF.ar(sig, 2000 + (env * 1500), 0.5 + (env * 0.4));
+					sig = MojiDistort2.ar(sig, 0.8, 0.29, 0.25, 0.25, 0.8, 2.5) * 3;
+					sig = Limiter.ar(sig, 1.0) * 0.725;
+					sig = sig * 0.5;
+					sig = sig * 0.685;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig * 0.1);
+					Out.ar(0, sig * 0.9);
+				}).add;
+				);
+
+
+				(SynthDef(\snare, {
+					var env, sig;
+					env = Env.perc(0.01, 0.05, \am.kr(1.0), -5).kr;
+					sig = SinOsc.ar(scale[0] * 4 + (env * 350) + WhiteNoise.ar(rrand(0.0, 800.0) + (rrand(0.0, 1500.0) * env)), 0, \mul.kr(1.0));
+					sig = sig.blend(PinkNoise.ar.blend(WhiteNoise.ar, rrand(0.0, 1.0)), rrand(0.0, 0.065));
+					sig = HPF.ar(sig, 300);
+					sig = LPF.ar(sig, 7800);
+					env = Env.perc(0.01, 0.25, \am.kr(1.0), -7.0).kr(2);
+					sig = sig * env * rrand(0.6, 0.8);
+
+					sig = MojiDistort2.ar(sig, rrand(0.1, 0.35), 0.2, 3);
+					sig = MojiCompressor.ar(sig, 0.8, 0.65, 3.9, 0.02, 0.04, 1.35);
+					sig = MojiDistort2.ar(sig, rrand(0.05, 0.3), 0.01, 0.01, 0.05, 0.1, 0.1);
+					sig = sig * 0.17;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					sig = MojiDistort3.ar(sig, 0.3, 0.03, 0.08, 0.1);
+					sig = MojiDistort3.ar(sig, 0.1, 0.03, 0.08, 0.1, 0.5, 1);
+
+					sig = sig * 0.5;
+					sig = sig * 0.5;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig) * 0.5;
+					Out.ar(~reverb, sig * 0.15);
+				}).add;
+				);
+
+
+				(SynthDef(\snare2, {
+					var env, sig, in, fb;
+					in = LocalIn.ar;
+					env = Env.perc(0.01, 0.05, \am.kr(1.0), -5).kr;
+					sig = SinOsc.ar(scale[0] * 5 + (env * 150) + (in * 10000 * env * 2), 0, \mul.kr(1.0));
+
+					env = Env.perc(0.01, 0.4, \am.kr(1.0), -7.0).kr(2);
+					fb = DelayN.ar(sig, 0.001, 0.001);
+					sig = sig * (1 + (fb * 3.5));
+					fb = DelayN.ar(sig, 0.001, 0.001);
+					sig = sig * (1 + (fb * 100));
+					sig = MojiDistort3.ar(sig, 0.5, 0.83, 3.88, 2.55, 3.85, 2.0, 1);
+					fb = DelayN.ar(sig, 0.001, 0.001);
+					sig = sig * (1 + (fb * 100));
+					sig = MojiDistort2.ar(sig, 0.5, 1.83, 3.88, 5.55, 0.85, 8.0, 1);
+					fb = DelayN.ar(sig, 0.001, 0.001);
+					sig = sig.blend(LPF.ar(HPF.ar(WhiteNoise.ar, 2500), 10000), 0.1);
+					sig = sig * (1 + (fb * 100));
+					sig = MojiDistort2.ar(sig, 0.5, 0.83, 3.88, 2.55, 3.85, 2.0, 1);
+					env = Env.perc(0.01, 0.05, \am.kr(1.0), -5).kr;
+					sig = SinOsc.ar(scale[0] * [2, 3, 4, 5].choose + (env * 150) + (in * 6000) + (sig * 10000), 0, \mul.kr(1.0));
+					fb = DelayN.ar(sig, 0.001, 0.001);
+					sig = sig * (1 + (fb * 3.5));
+					sig = MojiDistort2.ar(sig, 0.8, 0.81, 0.01, 0.25, 0.3, 0.2);
+					sig = sig * (1 + (fb * 3.5));
+					sig = MojiDistort2.ar(sig, 0.8, 0.2, 0.48, 0.1);
+					sig = MojiDistort2.ar(sig, 0.8, 0.03, 0.88, 0.5, 0.5, 2.0, 1);
+					sig = MojiCompressor.ar(sig, 0.4, 0.75, 1.9, 0.05, 0.04, 1.5);
+					sig = MojiDistort2.ar(sig, 0.1, 0.01, 0.01, 0.01, 0.01, 0.01);
+
+
+					env = Env.perc(0.01, 0.2, \am.kr(1.0), -7.0).kr(2);
+					sig = sig * env * 1.95;
+					LocalOut.ar(sig);
+					sig = Pan2.ar(sig, \pan.kr(0));
+					sig = sig * 0.5;
+					sig = sig * 0.5;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig);
+				}).add;
+				);
+
+				(SynthDef.new(\hat, {
+					var env, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(0.05), \am.kr(1.0)).kr(2);
+					sig = Pulse.ar([scale[0], scale[0] + 0.35] * 4, 0.5, \mul.kr(1.0)).sum * 0.5;
+					sig = SinOsc.ar(scale[0] * 8 * [1, 8, 14.8, 7.5, 7.75, 8.3, 8.33, 9, 10, 10.5, 10.05, 10.2, 13, 13.5, 12, 12.2, 12.3, 12.8, 11, 11.1], 0, \mul.kr(1.0)).sum * 0.1;
+					sig = sig * env;
+					sig = HPF.ar(sig, 2000);
+					sig = sig.blend(HPF.ar(WhiteNoise.ar, 1500) * env, 0.06);
+					sig = Pan2.ar(sig, \pan.kr(0.0)) * 0.7;
+					sig = sig * 0.5;
+					sig = sig * 0.5;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig);
+				}).add;
+				);
+
+				(SynthDef.new(\perc, {
+					var env, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(0.05), \am.kr(1.0)).kr(2);
+					sig = SinOsc.ar(scale[4] * 8 + (env * 100) + (fRatio * 500) + (tRatio + 500), 0, \mmul.kr(1.0));
+					sig = SinOsc.ar(scale[4] * 2 + (sig * 5000) + (env * 100), 0, \mul.kr(1.0));
+					sig = sig * env;
+					sig = LPF.ar(sig, 1000);
+					sig = Pan2.ar(sig, \pan.kr(0.0)) * 0.4;
+					sig = sig * 0.5;
+					sig = sig * 0.35;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig);
+				}).add;
+				);
+
+
+				(SynthDef(\pluck, {
+					var env, sig, mod, freq;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(0.5) + LFNoise2.kr(0.01, 0.9).abs, \am.kr(1.0)).kr(2);
+					freq = \freq.kr(440);
+					mod = SinOsc.ar(freq * [tRatio, fRatio].choose, 0, \mmul.kr(1.0));
+					freq = freq + (mod * 2);
+					sig = SinOsc.ar(freq + (mod * 400), 0, \mul.kr(1.0));
+					sig = sig.blend(Saw.ar(freq, \mul.kr), 0.2);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0.0));
+					sig = sig * 0.5;
+					sig = sig * 0.85;
+					sig = sig * 0.45;
+					Out.ar(\out.kr(0), sig);
+				}).add;
+				);
+
+
+				(Ndef(\acid, {
+					var env, freq, sig, fb;
+					env = Impulse.kr(time * [2, 4, 8, 4, 4, 4, 1].choose);
+					env = EnvGen.kr(Env.perc(0.01, 0.25 + LFNoise2.kr(rrand(0.05, 1.5), 4.5).abs), env);
+					freq = Impulse.kr(time * [2, 4, 8, 4, 4, 4].choose) * LFNoise2.kr(20.3, 7.15).abs.floor;
+					freq = Demand.kr(freq, 0, Dseq(Array.fill(melody, {scale[rrand(0, 6)] * [0.25, 0.5, 1, 2].choose}), inf)) * 0.5 * acidR;
+					sig = SinOsc.ar(freq, 0, 0.4);
+					sig = sig.blend(Saw.ar(freq, 0.4), rrand(0.0, 1.0)) * 0.8;
+					sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
+					fb = DelayN.ar(sig, 0.0002, 0.0002);
+					sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
+					sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1);
+					sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
+					sig = SinOsc.ar(freq, 0, 0.4).blend(sig, rrand(0.0, 1.0));
+					sig = sig.blend(Saw.ar(freq, 0.4), rrand(0.0, 1.0)) * 0.8;
+					sig = sig.blend(Pulse.ar(freq, 0.5, 0.4), rrand(0.0, 0.8)) * 0.7;
+					sig = RLPF.ar(sig, 50 + LFNoise2.kr(rrand(0.1, 0.5), 7000).abs, 0.2 + LFNoise2.kr(rrand(0.05, 0.45), 0.8).abs);
+					sig = sig * (1 + (fb * rrand(0.0, 1.25))) * 0.8;
+					sig = MojiDistort2.ar(sig, 0.4, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.85;
+					sig = sig * env * rrand(0.6, 1.05);
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.5, 0.9));
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.35, 0.8));
+					sig = Pan2.ar(sig, LFNoise2.kr(rrand(0.15, 0.7), 0.3));
+					sig = sig * 0.7;
+					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/acid', sig);
+					sig;
+				}));
+
+				(Ndef(\lead, {
+					var env, freq, sig, fb;
+					env = Impulse.kr(time * [2, 4, 1, 2, 1, 0.5, 0.25, 1, 1, 2, 1, 1, 1, 0.5, 0.25, 1, 1, 2, 1, 1, 1, 0.5, 0.25, 1, 1].choose) * LFNoise2.kr(18.3, 6.15).abs.floor;
+					env = EnvGen.kr(Env.perc(0.01, 0.5 + LFNoise2.kr(rrand(0.05, 1.5), 1.05).abs), env);
+					freq = Impulse.kr(time * [2, 4, 4, 2, 1, 0.5, 0.25, 12, 4, 8, 4, 4, 4].choose) * LFNoise2.kr(3.3, 5.15).abs.floor;
+					freq = Demand.kr(freq, 0, Dseq(Array.fill(melody, {scale[rrand(0, 6)] * [4, 0.5, 1, 2].choose}), inf) * Drand([0.5, 1], inf)) * 2;
+					sig = SinOsc.ar(freq, 0, 0.4);
+					fb = DelayN.ar(sig, 0.0002, 0.0002);
+					sig = sig * (1 + (fb * rrand(0.0, 0.5)));
+					sig = MojiDistort2.ar(sig, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1);
+					sig = sig * (1 + (fb * rrand(0.0, 0.5)));
+					sig = MojiDistort2.ar(sig, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.6;
+					sig = sig * env;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.15, 0.9));
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.25, 0.9));
+					sig = Pan2.ar(sig, LFNoise2.kr(rrand(0.15, 0.7), 0.3)) * 0.5;
+					sig = sig * 0.5;
+					sig = sig * 0.85;
+					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead', sig);
+					sig;
+				}));
+
+				(Ndef(\lead2, {
+					var env, freq, sig, fb;
+					env = Impulse.kr(time * [2, 4, 1, 2, 1, 0.5, 0.25, 1, 1, 2, 1, 1, 1, 0.5, 0.25, 1, 1, 2, 1, 1, 1, 0.5, 0.25, 1, 1].choose) * LFNoise2.kr(18.3, 6.15).abs.floor;
+					env = EnvGen.kr(Env.perc(0.01, 0.5 + LFNoise2.kr(rrand(0.05, 1.5), 1.05).abs), env);
+					freq = Impulse.kr(time * [2, 4, 4, 2, 1, 0.5, 0.25, 12, 4, 8, 4, 4, 4].choose) * LFNoise2.kr(3.3, 5.15).abs.floor;
+					freq = Demand.kr(freq, 0, Dseq(Array.fill(melody, {scale[rrand(0, 6)] * [4, 0.5, 1, 2].choose}), inf) * Drand([0.5, 1], inf)) * 2;
+					sig = SinOsc.ar(freq, 0, 0.4);
+					fb = DelayN.ar(sig, 0.0002, 0.0002);
+					sig = sig * (1 + (fb * rrand(0.0, 0.5)));
+					sig = MojiDistort2.ar(sig, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1);
+					sig = sig * (1 + (fb * rrand(0.0, 0.5)));
+					sig = MojiDistort2.ar(sig, 0.2, 0.1, 0.2, 0.1, 0.1, 0.1) * 0.6;
+					sig = sig * env;
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.15, 0.9));
+					sig = FreeVerb.ar(LPF.ar(HPF.ar(sig, 500), 2000), 1.0, 0.4, 0.3).blend(sig, rrand(0.25, 0.9));
+					sig = Pan2.ar(sig, LFNoise2.kr(rrand(0.15, 0.7), 0.3)) * 0.5;
+					sig = sig * 0.5;
+					sig = sig * 0.85;
+					sig = sig * 0.45;
+					SendReply.ar(Impulse.ar(0.3), '/lead', sig);
+					sig;
+				}));
+
+
+
+				drumDur = [0.25, 0.5].choose;
+
+				Pdef(\kick, Pbind(
+					\instrument, Pseq(kickArray, inf),
+					\dur, drumDur,
+					\mul, 0.4 * 1.15,
+					\out, [Pseq([0, 0, 0, ~reverb, 0, 0, ~distortion, 0, 0, ~reverb, ~distortion, 0, 0, ~distortion, 0, ~reverb], inf), Pseq([0, 0, 0, ~reverb, 0, 0, ~distortion, 0, 0, ~reverb, ~distortion, 0, 0, ~distortion, 0, ~reverb], inf), Pseq([0, 0, 0, ~distortion, 0, 0, ~reverb, 0, 0, ~distortion, ~reverb, 0, 0, ~reverb, 0, ~distortion], inf), Pseq([0, ~reverb, 0, ~distortion, 0, 0, ~reverb, 0, 0, ~distortion, ~reverb, 0, 0, ~reverb, 0, ~distortion], inf), 0].choose,
+					\pan, [Pseq([0, 0, 0, -1, 0, 0, 0.3, 0, 0, 0.5, 0, 0, 0.5, 0, 1, 0, Pwhite(-0.3, 0.3, 16)], inf), 0].choose * rrand(0.0, 0.9);
+				));
+
+				Pdef(\snare, Pbind(
+					\instrument, Pseq(snareArray, inf),
+					\dur, drumDur,
+					\mul, 0.72 * 1.15,
+					\pan, Pseq([-0.4, -0.3, -0.3, 0, 0, 0.2, 0.2, 0.2, 0.2, 0.2], inf),
+				));
+
+
+				Pdef(\snare2, Pbind(
+					\instrument, Pseq(snare2Array, inf),
+					\dur, drumDur,
+					\mul, 0.95 * 1.15,
+					\pan, Pwhite(-1.0, 1.0, inf),
+					\out, ~distortion
+				));
+
+
+				Pdef(\hat, Pbind(
+					\instrument, Pseq(hatArray, inf),
+					\dur, drumDur * [Pseq([0.33, 0.33, 0.34], inf) * 2, 0.4, 0.5, 1, 1, 1, 2].choose,
+					\dec, Pseq([0.1, 0.2, 0.025, 0.9, 0.025, 0.05, 0.1, 0.2, 0.4, 0.025, 0.1], inf),
+					\mul, 0.35 * 1.15,
+					\pan, Pseq([-0.3, 0, 0, 0.4, 0.4, 0.5, -0.8], inf),
+					\out, ~reverb
+				));
+
+				Pdef(\pad, Pbind(
+					\instrument, \pad,
+					\dur, cD = [4, 2, 1, 0.5].choose * tSig,
+					\atk, 3.1,
+					\dec, 2.825 * tSig,
+					\freq, Pseq(chords, inf) * 4,
+					\mmul, Pwhite(0.01, 5.5, inf),
+					\mul, 0.03 * rrand(1.0, 1.2),
+					\am, 0.37,
+					\pan, Pseq([-0.8, -0.4, 0, Pwhite(-0.4, 0.2, Pwhite(1, 3, 1)), 0.2, 0.9, Pwhite(-0.8, 1.0, Pwhite(1, 4, 1))], inf) * rrand(0.0, 0.8)
+				));
+
+				Pdef(\bass, Pbind(
+					\instrument, \bass,
+					\dur, cD,
+					\atk, 0.05,
+					\dec, 2.5 * tSig,
+					\freq, Pseq([chords[0][0], chords[1][0], chords[2][0], chords[3][0]], inf) * 0.5,
+					\mmul, Pwhite(0.01, 5.5, inf),
+					\mul, 0.3,
+					\am, 0.4,
+					\pan, 0
+				));
+
+				Pdef(\pluck, Pbind(
+					\instrument, \pluck,
+					\dur, Pseq([[0.25, 0.25, 0.5, 1, 0.25, 0.25, 0.25, 0.125, 0.125], [1, 0.5, 0.25, 0.125, 0.125, 0.25, 0.25, 0.25, 0.25, 0.5, 0.125, 0.125, 0.125, 0.125], [0.25, 0.25, 0.5, 0.25, 0.25, 1, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125]].choose, inf) * [2, 4, 8, 4, 1, 2, 2].choose,
+					\freq, Pseq(Array.fill([melody, rrand(3, 20)].choose, {scale[rrand(0, 6)]}), inf) * Prand([1, 2, 2, 2, 2, 4, 4, 8, 4, 4, 8, 2], inf) * 2,
+					\dec, Pwhite(rrand(0.4, 0.8), rrand(0.81, 2.5), inf),
+					\mul, 0.28,
+					\out, ~reverb
+				));
+
+				Pdef(\chords, Pbind(
+					\instrument, \pluck,
+					\atk, [0.01, 0.01, 0.01, 0.01, 3].choose,
+					\dur, cD,
+					\dec, 2.125 * tSig,
+					\mul, rrand(0.09, 0.14),
+					\freq, Pseq(chords, inf) * [2, 4].choose,
+				));
+
+
+				Pdef(\perc, Pbind(
+					\instrument, Pseq(percArray, inf),
+					\dur, drumDur,
+					\atk, Pwhite(0.001, 0.025, inf),
+					\dec, Pwhite(0.05, 0.35, inf),
+					\mul, 0.65,
+					\out, ~reverb,
+					\pan, Pwhite(-0.5, 0.5, inf),
+				));
+
+				OSCdef(\acid, {
+					arg sig;
+					~aC = (sig[3].abs * 20).clip2(1.0);
+				}, '/acid');
+
+				OSCdef(\lead, {
+					arg sig;
+					~bC = (sig[3].abs * 20).clip2(1.0);
+				}, '/lead');
+
+				OSCdef(\lead2, {
+					arg sig;
+					~aC = (sig[3].abs * 20).clip2(1.0);
+				}, '/lead2');
+
+				Ndef(\visual, {
+					var sig;
+					sig = [In.ar(0, 2).sum, Ndef(\acid).ar.sum, Ndef(\lead).ar.sum, Ndef(\lead2).ar.sum, Ndef(\lead3).ar.sum].sum;
+					sig = [sig, DelayN.ar(sig, 0.025, 0.025)];
+					Out.ar(~visual, sig);
+					sig = sig * 0.0001;
+					Out.ar(~visual, sig);
+				});
+			};
+
+
+			Ndef(\reverb).play;
+			Ndef(\distortion).play;
+
+
+			Ndef(\acid).play;
+			Ndef(\lead).play;
+			Pdef(\bass).play(clock);
+			Pdef(\pad).play(clock);
+			Pdef(\kick).play(clock);
+			Pdef(\snare).play(clock);
+			Pdef(\snare2).play(clock);
+			Pdef(\hat).play(clock);
+			Pdef(\pluck).play(clock);
+			Pdef(\perc).play(clock);
+			Pdef(\chords).play(clock);
+
+
+
+
+
+
+			if(drumBool <= 0){
+				Pdef(\kick).stop;
+				Pdef(\snare).stop;
+				Pdef(\hat).stop;
+				Pdef(\snare2).stop;
+				Pdef(\perc).stop;
+			};
+			if(acidBool <= 0){
+				Ndef(\acid).free;
+			};
+			if(lead2Bool <= 0){
+				Ndef(\lead2).free;
+			};
+			if(padBool <= 0){
+				Pdef(\pad).stop;
+			}{
+				Pdef(\chords).stop;
+			};
+			if(kickBool <= 0){
+				Pdef(\kick).stop;
+			};
+			if(snareBool <= 0){
+				Pdef(\snare).stop;
+			};
+			if(snare2Bool <= 0){
+				Pdef(\snare).stop;
+			};
+			if(hatBool <= 0){
+				Pdef(\hat).stop;
+			};
+			if(pluckBool <= 0){
+				Pdef(\pluck).stop;
+			};
+			if(percBool <= 0){
+				Pdef(\perc).stop;
+			};
+			if(bassBool <= 0){
+				Pdef(\bass).stop;
+			};
+			if(chordBool <= 0){
+				Pdef(\chords).stop;
+			};
+
+			Ndef(\visual).free;
+			Ndef(\visual).play;
+
+		};
+
+
+
+
+		Task({
+
+
+
+			loop{
+
+				scope.scopeView.waveColors_([Color(~aC, ~bC, ~cC)]);
+
+				wait(0.4);
+			};
+		}).play(AppClock);
+
+		Task({
+			loop{
+				genLoop.();
+				wait(tSig * [8, 4, 8, 8, 4, 4, 4, 16, 32, 8, 16, 8, 4, 8, 16].choose);
+			}
+		}).play(clock);
+	}
+}
 
 
 
