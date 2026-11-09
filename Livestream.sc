@@ -4540,10 +4540,10 @@ Livestream42_1 : Livestream {
 			melody = [tSig * [1, 2, 4].choose, tSig * [1, 2, 4].choose, rrand(3, 28)].choose;
 
 			chords = [[[scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
-		[[scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]],
-		[[scale[0], scale[2], scale[4]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[2], scale[4], scale[6]]],
-		[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
-		[[scale[2], scale[4], scale[6]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[0], scale[2], scale[4]]]].choose;
+				[[scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]],
+				[[scale[0], scale[2], scale[4]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[2], scale[4], scale[6]]],
+				[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
+				[[scale[2], scale[4], scale[6]], [scale[4], scale[6], scale[1] * 2], [scale[3], scale[5], scale[0] * 2], [scale[0], scale[2], scale[4]]]].choose;
 
 
 			if((repattern >= 1) || (first >= 1)){
@@ -5035,6 +5035,474 @@ Livestream42_1 : Livestream {
 }
 
 
+Livestream43 : Livestream {
+
+	*play {
+		var root, tuning, scale, tempo, tMul, clock, tSig, gen, fR, tR, bassArray, pluckArray, pluck2Array, pluck2Melody, bassMelody, pluckMelody, bus1, bus2, bus3, main, first, synthArray, synthMelody, synth2Array, synth2Melody, synth3Array, synth3Melody, chords, chordBool, timeBool, scaleBool, repattern, scope;
+
+		"play twice ? weird bug".postln;
+
+		~aC = 1.0;
+		~bC = 1.0;
+		~cC = 1.0;
+
+
+		if(~main.isNil){
+
+			~main = Bus.audio(Server.local, 2);
+			~bus1 = Bus.audio(Server.local, 2);
+			~bus2 = Bus.audio(Server.local, 2);
+			~bus3 = Bus.audio(Server.local, 2);
+			~visual = Bus.audio(Server.local, 2);
+
+		};
+
+		first = 1;
+
+		gen = {
+
+			repattern = rrand(-5, 2);
+			scaleBool = rrand(-13, 2);
+			timeBool = rrand(-13, 2);
+			chordBool = rrand(-7, 2);
+
+			if((repattern >= 1) || (first >= 1)){
+
+				if((scaleBool >= 1) || (first >= 1)){
+
+					root = rrand(39.85, 47.5);
+					tuning = TuningArray.edo(root, 38);
+					scale = [tuning[0], tuning[7], tuning[12], tuning[15], tuning[22], tuning[29], tuning[35]];
+
+				};
+
+				if((timeBool >= 1) || (first >= 1)){
+					tempo = rrand(33.0, 53.0)/60;
+					tMul = 1/tempo;
+					clock = TempoClock(tempo);
+					tSig = rrand(3, 4);
+
+				};
+
+				fR = scale[4]/scale[0];
+				tR = scale[2]/scale[0];
+
+
+				bassArray = Array.fill(tSig * [8, 8, 4, 4, 2].choose, {[\bass, \bass, \rest, \rest, \rest].choose});
+				pluckArray = Array.fill(tSig * [4, 8, 2].choose, {[\pluck, \rest, \rest, \rest, \rest].choose});
+				pluck2Array = Array.fill(tSig * [4, 8, 2].choose, {[\pluck, \rest, \rest, \rest, \rest].choose});
+				synthArray = Array.fill(tSig * [4, 8, 2].choose, {[\synth, \rest, \rest, \rest, \rest].choose});
+				synth2Array = Array.fill(tSig * [4, 8, 2].choose, {[\synth, \rest, \rest, \rest, \rest].choose});
+				synth3Array = Array.fill(tSig * [4, 8, 2].choose, {[\synth2, \rest, \rest, \rest, \rest].choose});
+
+				bassMelody = Array.fill(bassArray.size, {scale.choose});
+				pluckMelody = Array.fill(pluckArray.size, {scale.choose});
+				pluck2Melody = Array.fill(pluckArray.size, {scale.choose});
+				synthMelody = Array.fill(pluckArray.size, {scale.choose});
+				synth2Melody = Array.fill(pluckArray.size, {scale.choose});
+				synth3Melody = Array.fill(pluckArray.size, {scale.choose});
+
+				if((chordBool >= 1) || (first >= 1)){
+
+					chords = [[
+
+						[scale[0], scale[4], scale[6]], [scale[5], scale[0], scale[2] * 2], [scale[3], scale[5], scale[0] * 2], [scale[4], scale[0] * 2, scale[2] * 2]],
+					[
+						[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[0], scale[1], scale[4] * 0.5], [scale[0], scale[2], scale[4]],
+						[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
+						[[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]]]
+					]
+
+					].choose;
+				};
+
+				first = 0;
+
+				Ndef(\arp, {
+					var sig, mod, freq;
+					freq = Demand.kr(Impulse.kr(tempo * 8), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf));
+					mod = SinOsc.ar(freq * fR, 0, 1.0);
+					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
+					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
+					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.2, 1300).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
+					sig = sig * 0.13 * LFNoise2.kr(0.02 + SinOsc.kr(0.05, 0, 0.12).abs, 0.9).abs * 0.95;
+
+					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
+					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01);
+					sig = MojiCompressor.ar(sig * 0.8, 0.3, 0.85, 1, 0.001, 0.001) * 0.22;
+					SendReply.ar(Impulse.ar(8.5), '/arp', sig);
+					sig = Limiter.ar(sig, 0.2);
+
+				});
+
+				Ndef(\arp2, {
+					var sig, mod, freq;
+					freq = Demand.kr(Impulse.kr(tempo * [4, 8].choose), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf)) * 2;
+					mod = SinOsc.ar(freq * fR, 0, 1.0);
+					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
+					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
+					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.25, 900).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
+					sig = sig * 0.13 * LFNoise2.kr(0.08 + SinOsc.kr(0.035, 0, 0.12).abs, 0.9).abs * 0.95;
+
+					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
+					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01) * 1.2;
+					sig = MojiCompressor.ar(sig * 0.8, 0.5, 0.85, 2, 0.001, 0.001) * 0.2;
+					SendReply.ar(Impulse.ar(8.5), '/arp2', sig);
+					sig = Limiter.ar(sig, 0.2);
+
+
+				});
+
+				SynthDef(\bass, {
+					var env, mod, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(1), \am.kr(1.0)).kr(2);
+					mod = SinOsc.ar(\freq.kr(440) * fR * 2, 0, \mmul.kr(1.0));
+					sig = SinOsc.ar(\freq.kr + (mod * 5.0), 0, \mul.kr(1.0));
+					sig = sig.blend(Pulse.ar(\freq.kr, 0.7, \mul.kr), 0.1);
+					sig = RLPF.ar(sig, 1000, 0.89);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					Out.ar(\out.kr(0), sig);
+				}).add;
+
+				SynthDef(\pluck, {
+					var env, mod, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(1), \am.kr(1.0)).kr(2);
+					mod = SinOsc.ar(\freq.kr(440) * fR * 2, 0, \mmul.kr(1.0));
+					sig = SinOsc.ar(\freq.kr + (mod * 5) * [1, 2, 2 * fR, 4, 1, 1, 1, 1], 0, \mul.kr(1.0)).sum * 0.13;
+					sig = sig.blend(SinOsc.ar(\freq.kr + (mod * 5), 0, \mul.kr), 0.95);
+					sig = sig.blend(Pulse.ar(\freq.kr * [1, 2, 2 * fR, 4, 1, 1, 1, 1], 0.7, \mul.kr).sum * 0.15, 0.05);
+					sig = RLPF.ar(sig, 4000, 0.7);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					Out.ar(\out.kr(0), sig);
+				}).add;
+
+				SynthDef(\synth, {
+					var env, mod, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(1), \am.kr(1.0)).kr(2);
+					mod = SinOsc.ar(\freq.kr(440) * fR * 2, 0, \mmul.kr(1.0));
+					sig = SinOsc.ar(\freq.kr + (mod * 5) * [1, 2, 2 * fR, 4, 1, 1, 1, 1], 0, \mul.kr(1.0)).sum * 0.13;
+					sig = sig.blend(SinOsc.ar(\freq.kr + (mod * 5), 0, \mul.kr), 0.95);
+					sig = sig.blend(Pulse.ar(\freq.kr * [1, 2, 2 * fR, 4, 1, 1, 1, 1], 0.7, \mul.kr).sum * 0.15, 0.05);
+					sig = sig.blend(Blip.ar(\freq.kr, 20, \mul.kr), 0.3);
+					sig = SinOsc.ar(\freq.kr, 0, \mul.kr).blend(sig, 0.35);
+					sig = RLPF.ar(sig, 3000, 0.9);
+					sig = RHPF.ar(sig, 500, 0.8);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					Out.ar(\out.kr(0), sig);
+				}).add;
+
+				SynthDef(\synth2, {
+					var env, mod, sig;
+					env = Env.perc(\atk.kr(0.01), \dec.kr(1), \am.kr(1.0)).kr(2);
+					mod = SinOsc.ar(\freq.kr(440) * fR * 2, 0, \mmul.kr(1.0));
+					sig = LFTri.ar(\freq.kr, 0, \mul.kr(1.0));
+					sig = sig.blend(Blip.ar(\freq.kr, 20, \mul.kr), 0.3);
+					sig = RLPF.ar(sig, 2000, 0.95);
+					sig = RHPF.ar(sig, 800, 0.8);
+					sig = SinOsc.ar(\freq.kr, 0, \mul.kr).blend(sig, 0.4);
+					sig = RLPF.ar(sig, SinOsc.kr(0.13, 0.5, 3500).abs + 400, 0.7);
+					sig = MojiDistort2.ar(sig, 0.5, 0.1, 0.03, 0, 0, 0);
+					sig = sig * env;
+					sig = Pan2.ar(sig, \pan.kr(0));
+					Out.ar(\out.kr(0), sig);
+				}).add;
+
+				Ndef(\arp, {
+					var sig, mod, freq;
+					freq = Demand.kr(Impulse.kr(tempo * 8), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf));
+					mod = SinOsc.ar(freq * fR, 0, 1.0);
+					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
+					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
+					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.2, 1300).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
+					sig = sig * 0.13 * LFNoise2.kr(0.02 + SinOsc.kr(0.05, 0, 0.12).abs, 0.9).abs * 0.95;
+
+					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
+					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01);
+					sig = MojiCompressor.ar(sig * 0.8, 0.3, 0.85, 1, 0.001, 0.001) * 0.22;
+					SendReply.ar(Impulse.ar(8.5), '/arp', sig);
+					sig = Limiter.ar(sig, 0.2);
+
+				});
+
+				Ndef(\arp2, {
+					var sig, mod, freq;
+					freq = Demand.kr(Impulse.kr(tempo * [4, 8].choose), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf)) * 2;
+					mod = SinOsc.ar(freq * fR, 0, 1.0);
+					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
+					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
+					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.25, 900).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
+					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
+					sig = sig * 0.13 * LFNoise2.kr(0.08 + SinOsc.kr(0.035, 0, 0.12).abs, 0.9).abs * 0.95;
+
+					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
+					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01) * 1.2;
+					sig = MojiCompressor.ar(sig * 0.8, 0.5, 0.85, 2, 0.001, 0.001) * 0.2;
+					SendReply.ar(Impulse.ar(8.5), '/arp2', sig);
+					sig = Limiter.ar(sig, 0.2);
+
+
+				});
+
+
+
+				Pdef(\bass, Pbind(
+					\instrument, \bass,
+					\dur, 4,
+					\dec, 10.5 * tMul,
+					\atk, 0.3,
+					\freq, Pseq([chords[0][0], chords[1][0], chords[2][0], chords[3][0]], inf) * 0.5,
+					\mul, 0.35,
+					\pan, Pwhite(-0.1, 0.1, inf),
+					\out, ~bus1
+				));
+
+				Pdef(\pluck, Pbind(
+					\instrument, Pseq(pluckArray, inf),
+					\dur, [0.25, 0.5, 1, 2].choose,
+					\mmul, 0.1,
+					\dec, 5.5 * tMul,
+					\freq, Pseq(pluckMelody, inf) * Prand([1, 2, 1, 2, 2, 4, 2, 4], inf) * 2,
+					\mul, 0.15 * 0.8,
+					\pan, 0.2,
+					\out, ~bus2
+				));
+
+
+				Pdef(\pluck2, Pbind(
+					\instrument, Pseq(pluck2Array, inf),
+					\dur, [0.125, 0.25, 0.5, 1, 2].choose,
+					\mmul, 0.1,
+					\dec, 3.5 * tMul,
+					\atk, 3.5 * tMul,
+					\freq, Pseq(pluck2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
+					\mul, 0.035 * 0.9,
+					\pan, -0.4,
+					\out, ~bus1
+				));
+
+				Pdef(\synth2, Pbind(
+					\instrument, Pseq(synth2Array, inf),
+					\dur, [0.25, 0.5, 1, 2].choose,
+					\mmul, 0.1,
+					\dec, 3.5 * tMul,
+					\atk, 3.5 * tMul,
+					\freq, Pseq(synth2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
+					\mul, 0.035 * 0.9,
+					\pan, -0.4,
+					\out, ~bus1
+				));
+
+				Pdef(\synth, Pbind(
+					\instrument, Pseq(synthArray, inf),
+					\dur, [0.25, 0.5, 1, 2].choose,
+					\mmul, 0.1,
+					\dec, 4.5 * tMul,
+					\atk, 0.5 * tMul,
+					\freq, Pseq(synthMelody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
+					\mul, 0.035 * 0.9,
+					\pan, -0.4,
+					\out, ~bus2
+				));
+
+				Pdef(\synth4, Pbind(
+					\instrument, Pseq(synthArray, inf),
+					\dur, [0.25, 0.5, 1, 2].choose,
+					\mmul, 0.04 * 0.9,
+					\dec, 9.5 * tMul,
+					\atk, 0.5 * tMul,
+					\freq, Pseq(synth2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
+					\mul, 0.035,
+					\pan, Pwhite(-0.4, 0.5, inf),
+					\out, ~bus3
+				));
+
+				Pdef(\synth5, Pbind(
+					\instrument, Pseq(pluck2Array, inf),
+					\dur, [0.25, 0.5, 1, 2, 0.125, 1, 0.5, 0.25].choose,
+					\mmul, 0.04 * 0.9,
+					\dec, 9.5 * tMul,
+					\atk, 0.5 * tMul,
+					\freq, Pseq(pluckMelody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
+					\mul, 0.035,
+					\pan, Pwhite(-0.4, 0.5, inf),
+					\out, ~bus3
+				));
+
+				Pdef(\synth3, Pbind(
+					\instrument, Pseq(synth3Array, inf),
+					\dur, [0.25, 0.5, 1, 2].choose,
+					\mul, 0.08 * 0.8,
+					\dec, 10 * tMul,
+					\freq, Pseq(synth3Melody, inf) * Prand([2, 2, 4, 2, 4, 2, 4, 2], inf) * 2,
+					\pan, Pwhite(-1.0, 1.0, inf),
+					\out, ~bus3
+				));
+
+				Pdef(\chords, Pbind(
+					\instrument, \synth,
+					\dur, 4,
+					\mul, 0.05,
+					\mmul, 0.1,
+					\dec, 15 * tMul,
+					\atk, Pwhite(0.01, 0.5, inf),
+					\freq, Pseq(chords, inf) * 2,
+					\pan, Pwhite(-0.3, 0.3, inf),
+					\out, ~main
+				));
+
+				Ndef(\visual, {
+					var sig;
+					sig = [In.ar(0, 2).sum, Ndef(\arp).ar.sum, Ndef(\arp2).ar.sum].sum;
+					sig = [sig, DelayN.ar(sig, 0.001, 0.001)];
+					Out.ar(~visual, sig);
+				});
+
+
+				Pdef(\bass).stop;
+				Pdef(\pluck).stop;
+				Pdef(\pluck2).stop;
+				Pdef(\synth).stop;
+				Pdef(\synth2).stop;
+				Pdef(\synth3).stop;
+				Pdef(\synth4).stop;
+				Pdef(\synth5).stop;
+				Pdef(\chords).stop;
+
+				Pdef(\bass).play(clock);
+				Pdef(\pluck).play(clock);
+				Pdef(\pluck2).play(clock);
+				Pdef(\synth).play(clock);
+				Pdef(\synth2).play(clock);
+				Pdef(\synth3).play(clock);
+				Pdef(\synth4).play(clock);
+				Pdef(\synth5).play(clock);
+				Pdef(\chords).play(clock);
+
+				Ndef(\arp).fadeTime = 20;
+				Ndef(\arp).free;
+				Ndef(\arp).play;
+
+				Ndef(\arp2).fadeTime = 20;
+				Ndef(\arp2).free;
+				Ndef(\arp2).play;
+
+				Ndef(\visual).free;
+				Ndef(\visual).play;
+
+			};
+
+		};
+
+		SynthDef(\main, {
+			var sig;
+			sig = In.ar(~main, 2);
+			sig = sig * 0.55;
+			sig = FreeVerb.ar(sig, 0.65, 0.65, 0.4);
+			sig = LPF.ar(sig, 3600).blend(HPF.ar(sig, 3900), 0.45).blend(sig, 0.3);
+			sig = LPF.ar(sig, 1900).blend(HPF.ar(sig, 2000), 0.485).blend(sig, 0.4);
+			sig = sig * 0.7;
+			sig = MojiCompressor.ar(sig, 0.2, 0.9, 1, 0.001, 0.001, 0.1);
+			sig = MojiDistort2.ar(sig, 0.1, 0.01, 0.01, 0.01, 0.01, 0.01);
+			sig = MojiDistort2.ar(sig, 0.1, 0.065, 0.025, 0, 0, 0, -400);
+			sig = sig.blend(LPF.ar(sig, 1800), 0.23);
+
+			sig = Limiter.ar(sig, 0.85);
+			SendReply.ar(Impulse.ar(8.5), '/main', sig);
+			Out.ar(0, sig);
+		}).add;
+
+		SynthDef(\bus1, {
+			var sig;
+			sig = In.ar(~bus1, 2);
+			sig = FreeVerb.ar(sig, 0.45, 0.95, 0.2) * LFNoise2.kr(0.05, 1.0).abs;
+			Out.ar(~main, sig);
+		}).add;
+
+		SynthDef(\bus2, {
+			var sig;
+			sig = In.ar(~bus2, 2);
+			sig = FreeVerb.ar(sig, 0.6, 0.75, 0.2) * LFNoise2.kr(0.02, 1.0).abs;
+			Out.ar(~main, sig);
+		}).add;
+
+		SynthDef(\bus3, {
+			var sig;
+			sig = In.ar(~bus3, 2);
+			sig = FreeVerb.ar(sig, 0.75, 0.75, 0.2) * LFNoise2.kr(0.3, 1.0).abs;
+			Out.ar(~main, sig);
+		}).add;
+
+
+
+		Synth(\main);
+
+
+		Synth(\bus1);
+		Synth(\bus2);
+		Synth(\bus3);
+
+		OSCdef(\main, {
+			arg sig;
+			~aC = (sig[3].abs * 80).clip2(1.0);
+		}, '/main');
+
+		OSCdef(\arp, {
+			arg sig;
+			~bC = (sig[3].abs * 50).clip2(1.0);
+		}, '/arp');
+
+		OSCdef(\arp2, {
+			arg sig;
+			~aC = (sig[3].abs * 50).clip2(1.0);
+		}, '/arp2');
+
+
+
+
+
+
+		Tdef(\task1, {
+			gen.();
+			wait([tSig * 2, tSig * 2, tSig * 4, tSig * 8, tSig * 8, tSig * 4, tSig * 16, tSig * 8, tSig * 8].choose);
+			Tdef(\task2).stop;
+			Tdef(\task2).play(clock);
+		});
+
+		Tdef(\task2, {
+			gen.();
+			wait([tSig * 2, tSig * 2, tSig * 4, tSig * 8, tSig * 8, tSig * 8, tSig * 8].choose);
+			Tdef(\task1).stop;
+			Tdef(\task1).play(clock);
+		});
+
+		Tdef(\task2).play(clock);
+
+		Task({
+
+
+
+			loop{
+
+				scope.scopeView.waveColors_([Color(~aC, ~bC, ~cC)]);
+
+				wait(0.4);
+			};
+		}).play(AppClock);
+
+
+
+		scope = Server.local.scope;
+		scope.bus_(~visual);
+
+	}
+
+}
 
 
 
