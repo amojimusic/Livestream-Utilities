@@ -5040,11 +5040,11 @@ Livestream43 : Livestream {
 	*play {
 		var root, tuning, scale, tempo, tMul, clock, tSig, gen, fR, tR, bassArray, pluckArray, pluck2Array, pluck2Melody, bassMelody, pluckMelody, bus1, bus2, bus3, main, first, synthArray, synthMelody, synth2Array, synth2Melody, synth3Array, synth3Melody, chords, chordBool, timeBool, scaleBool, repattern, scope;
 
-		"play twice ? weird bug".postln;
-
 		~aC = 1.0;
 		~bC = 1.0;
 		~cC = 1.0;
+
+		"play twice ? weird bug".postln;
 
 
 		if(~main.isNil){
@@ -5072,9 +5072,10 @@ Livestream43 : Livestream {
 
 					root = rrand(39.85, 47.5);
 					tuning = TuningArray.edo(root, 38);
-					scale = [tuning[0], tuning[7], tuning[12], tuning[15], tuning[22], tuning[29], tuning[35]];
+					scale = [tuning[0], tuning[7], tuning[12], tuning[16], tuning[23], tuning[[28, 29].choose], tuning[[34, 35].choose]];
 
 				};
+
 
 				if((timeBool >= 1) || (first >= 1)){
 					tempo = rrand(33.0, 53.0)/60;
@@ -5083,9 +5084,10 @@ Livestream43 : Livestream {
 					tSig = rrand(3, 4);
 
 				};
-
 				fR = scale[4]/scale[0];
 				tR = scale[2]/scale[0];
+
+
 
 
 				bassArray = Array.fill(tSig * [8, 8, 4, 4, 2].choose, {[\bass, \bass, \rest, \rest, \rest].choose});
@@ -5117,43 +5119,6 @@ Livestream43 : Livestream {
 				};
 
 				first = 0;
-
-				Ndef(\arp, {
-					var sig, mod, freq;
-					freq = Demand.kr(Impulse.kr(tempo * 8), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf));
-					mod = SinOsc.ar(freq * fR, 0, 1.0);
-					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
-					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
-					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.2, 1300).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
-					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
-					sig = sig * 0.13 * LFNoise2.kr(0.02 + SinOsc.kr(0.05, 0, 0.12).abs, 0.9).abs * 0.95;
-
-					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
-					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01);
-					sig = MojiCompressor.ar(sig * 0.8, 0.3, 0.85, 1, 0.001, 0.001) * 0.22;
-					SendReply.ar(Impulse.ar(8.5), '/arp', sig);
-					sig = Limiter.ar(sig, 0.2);
-
-				});
-
-				Ndef(\arp2, {
-					var sig, mod, freq;
-					freq = Demand.kr(Impulse.kr(tempo * [4, 8].choose), 0, Dseq([Dseq([chords[0][0], chords[0][2], scale.choose, chords[0][1]], 4), Dseq([chords[1][0], chords[1][2], scale.choose, chords[1][1]], 4), Dseq([chords[2][0], chords[2][2], scale.choose, chords[2][1]], 4), Dseq([chords[3][0], chords[3][2], scale.choose, chords[3][1]], 4)], inf) * Drand([1, 2, 2, 2, 2, 4, 4, 2, 2, 2, 4, 1, 0.5], inf)) * 2;
-					mod = SinOsc.ar(freq * fR, 0, 1.0);
-					sig = SinOsc.ar(freq + (mod * 50), 0, 1.0);
-					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
-					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.25, 900).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
-					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
-					sig = sig * 0.13 * LFNoise2.kr(0.08 + SinOsc.kr(0.035, 0, 0.12).abs, 0.9).abs * 0.95;
-
-					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
-					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01) * 1.2;
-					sig = MojiCompressor.ar(sig * 0.8, 0.5, 0.85, 2, 0.001, 0.001) * 0.2;
-					SendReply.ar(Impulse.ar(8.5), '/arp2', sig);
-					sig = Limiter.ar(sig, 0.2);
-
-
-				});
 
 				SynthDef(\bass, {
 					var env, mod, sig;
@@ -5221,12 +5186,15 @@ Livestream43 : Livestream {
 					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.2, 1300).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
 					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
 					sig = sig * 0.13 * LFNoise2.kr(0.02 + SinOsc.kr(0.05, 0, 0.12).abs, 0.9).abs * 0.95;
+					sig = HPF.ar(sig, 1000).blend(sig, 0.6);
 
 					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
 					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01);
-					sig = MojiCompressor.ar(sig * 0.8, 0.3, 0.85, 1, 0.001, 0.001) * 0.22;
+					sig = MojiCompressor.ar(sig * 0.8, 0.3, 0.85, 1, 0.001, 0.001) * 0.2;
 					SendReply.ar(Impulse.ar(8.5), '/arp', sig);
-					sig = Limiter.ar(sig, 0.2);
+					sig = sig * 0.8;
+					sig = sig * 0.6;
+					sig = Limiter.ar(sig, 0.1) * 1.5;
 
 				});
 
@@ -5242,22 +5210,43 @@ Livestream43 : Livestream {
 
 					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
 					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01) * 1.2;
-					sig = MojiCompressor.ar(sig * 0.8, 0.5, 0.85, 2, 0.001, 0.001) * 0.2;
+					sig = MojiCompressor.ar(sig * 0.8, 0.5, 0.85, 2, 0.001, 0.001) * 0.17;
+					sig = HPF.ar(sig, 1000).blend(sig, 0.6);
 					SendReply.ar(Impulse.ar(8.5), '/arp2', sig);
-					sig = Limiter.ar(sig, 0.2);
+					sig = sig * 0.8;
+					sig = sig * 0.6;
+					sig = Limiter.ar(sig, 0.1) * 1.5;
 
 
+				});
+
+				Ndef(\fire, {
+					var noise, sig;
+					noise = RLPF.ar(PinkNoise.ar(0.1), 530, 0.5);
+					noise = RHPF.ar(noise, 100, 0.3);
+					sig = noise;
+					sig = sig.blend(PinkNoise.ar(0.1), rrand(0.5, 0.8));
+					sig = HPF.ar(RLPF.ar(sig, LFNoise2.kr(3.5, 5000).abs + 4000, 0.75 + LFNoise2.kr(4.5, 0.05)) * 2, 300) * EnvGen.kr(Env.perc(0.0001, 0.02 + LFNoise2.kr(4.5, 0.01), 1, -5.5), LFNoise0.kr(27.5 + LFNoise2.kr(2, 8.0), 1.15).abs.floor) * LFNoise0.kr(30.0, 2.8).abs;
+					sig = sig.blend(noise, 0.8);
+					sig = sig.blend(PinkNoise.ar(0.1), rrand(0.5, 0.8));
+
+					sig = (HPF.ar(RLPF.ar(sig, LFNoise2.kr(3.5, 5000).abs + 4000, 0.75 + LFNoise2.kr(4.5, 0.05)) * 2, 300) * EnvGen.kr(Env.perc(0.0001, 0.02 + LFNoise2.kr(4.5, 0.01), 1, -5.5), LFNoise0.kr(27.5 + LFNoise2.kr(2, 8.0), 1.15).abs.floor) * LFNoise0.kr(30.0, 2.8).abs).blend(sig, 0.2);
+
+
+					sig = sig.blend(noise, 0.895);
+					sig = sig.blend(BPF.ar(sig, 280, 0.04), 0.225);
+					sig = Pan2.ar(sig, 0.0) * 0.9 * LFNoise2.kr(0.03, 0.95).abs * 1.2;
 				});
 
 
 
 				Pdef(\bass, Pbind(
 					\instrument, \bass,
-					\dur, 4,
-					\dec, 10.5 * tMul,
+					\dur, tSig,
+					\dec, tSig * 1.3 * tMul,
 					\atk, 0.3,
 					\freq, Pseq([chords[0][0], chords[1][0], chords[2][0], chords[3][0]], inf) * 0.5,
-					\mul, 0.35,
+					\mul, 0.2125,
 					\pan, Pwhite(-0.1, 0.1, inf),
 					\out, ~bus1
 				));
@@ -5314,7 +5303,7 @@ Livestream43 : Livestream {
 					\instrument, Pseq(synthArray, inf),
 					\dur, [0.25, 0.5, 1, 2].choose,
 					\mmul, 0.04 * 0.9,
-					\dec, 9.5 * tMul,
+					\dec, 5.5 * tMul,
 					\atk, 0.5 * tMul,
 					\freq, Pseq(synth2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
 					\mul, 0.035,
@@ -5326,7 +5315,7 @@ Livestream43 : Livestream {
 					\instrument, Pseq(pluck2Array, inf),
 					\dur, [0.25, 0.5, 1, 2, 0.125, 1, 0.5, 0.25].choose,
 					\mmul, 0.04 * 0.9,
-					\dec, 9.5 * tMul,
+					\dec, 5.5 * tMul,
 					\atk, 0.5 * tMul,
 					\freq, Pseq(pluckMelody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
 					\mul, 0.035,
@@ -5338,7 +5327,7 @@ Livestream43 : Livestream {
 					\instrument, Pseq(synth3Array, inf),
 					\dur, [0.25, 0.5, 1, 2].choose,
 					\mul, 0.08 * 0.8,
-					\dec, 10 * tMul,
+					\dec, 6 * tMul,
 					\freq, Pseq(synth3Melody, inf) * Prand([2, 2, 4, 2, 4, 2, 4, 2], inf) * 2,
 					\pan, Pwhite(-1.0, 1.0, inf),
 					\out, ~bus3
@@ -5346,10 +5335,10 @@ Livestream43 : Livestream {
 
 				Pdef(\chords, Pbind(
 					\instrument, \synth,
-					\dur, 4,
-					\mul, 0.05,
-					\mmul, 0.1,
-					\dec, 15 * tMul,
+					\dur, tSig,
+					\mul, 0.082,
+					\mmul, rrand(0.05, 0.35),
+					\dec, tSig * 1.3 * tMul,
 					\atk, Pwhite(0.01, 0.5, inf),
 					\freq, Pseq(chords, inf) * 2,
 					\pan, Pwhite(-0.3, 0.3, inf),
@@ -5358,7 +5347,7 @@ Livestream43 : Livestream {
 
 				Ndef(\visual, {
 					var sig;
-					sig = [In.ar(0, 2).sum, Ndef(\arp).ar.sum, Ndef(\arp2).ar.sum].sum;
+					sig = [In.ar(0, 2).sum, Ndef(\arp).ar.sum, Ndef(\arp2).ar.sum, Ndef(\fire).ar.sum].sum;
 					sig = [sig, DelayN.ar(sig, 0.001, 0.001)];
 					Out.ar(~visual, sig);
 				});
@@ -5384,6 +5373,10 @@ Livestream43 : Livestream {
 				Pdef(\synth5).play(clock);
 				Pdef(\chords).play(clock);
 
+				Ndef(\fire).fadeTime = 20;
+				Ndef(\fire).free;
+				Ndef(\fire).play;
+
 				Ndef(\arp).fadeTime = 20;
 				Ndef(\arp).free;
 				Ndef(\arp).play;
@@ -5402,17 +5395,27 @@ Livestream43 : Livestream {
 		SynthDef(\main, {
 			var sig;
 			sig = In.ar(~main, 2);
-			sig = sig * 0.55;
+			sig = sig * 0.45;
 			sig = FreeVerb.ar(sig, 0.65, 0.65, 0.4);
-			sig = LPF.ar(sig, 3600).blend(HPF.ar(sig, 3900), 0.45).blend(sig, 0.3);
-			sig = LPF.ar(sig, 1900).blend(HPF.ar(sig, 2000), 0.485).blend(sig, 0.4);
-			sig = sig * 0.7;
+			sig = LPF.ar(sig, 3600).blend(HPF.ar(sig, 3900), 0.499).blend(sig, 0.29);
+			sig = LPF.ar(sig, 1900).blend(HPF.ar(sig, 2000), 0.495).blend(sig, 0.325);
+			sig = LPF.ar(sig, 900).blend(HPF.ar(sig, 1400), 0.5).blend(sig, 0.775);
+			sig = LPF.ar(sig, 200).blend(HPF.ar(sig, 800), 0.495).blend(sig, 0.825);
+			sig = LPF.ar(sig, 1600).blend(HPF.ar(sig, 2580), 0.5).blend(sig, 0.275);
+			sig = sig * 0.6;
 			sig = MojiCompressor.ar(sig, 0.2, 0.9, 1, 0.001, 0.001, 0.1);
+			sig = sig * 1.125;
+			sig = MojiCompressor.ar(sig, 0.2, 0.9, 1, 0.001, 0.001, 0.1);
+			sig = MojiDistort2.ar(sig, 0.03, 0.01, 0.004, 0.0002, 0, 0, -400);
+			sig = LPF.ar(sig, 2300).blend(HPF.ar(sig, 3680), 0.475).blend(sig, 0.65);
+			sig = sig * 1.29;
 			sig = MojiDistort2.ar(sig, 0.1, 0.01, 0.01, 0.01, 0.01, 0.01);
-			sig = MojiDistort2.ar(sig, 0.1, 0.065, 0.025, 0, 0, 0, -400);
-			sig = sig.blend(LPF.ar(sig, 1800), 0.23);
+			sig = sig.blend(LPF.ar(sig, 1800), 0.22) * 1.08;
+			sig = HPF.ar(sig, 60);
+			sig = HPF.ar(sig, 40);
+			sig = HPF.ar(sig, 40);
 
-			sig = Limiter.ar(sig, 0.85);
+			sig = Limiter.ar(sig * 1.7, 0.9);
 			SendReply.ar(Impulse.ar(8.5), '/main', sig);
 			Out.ar(0, sig);
 		}).add;
