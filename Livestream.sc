@@ -5109,16 +5109,35 @@ Livestream43 : Livestream {
 					chords = [[
 
 						[scale[0], scale[4], scale[6]], [scale[5], scale[0], scale[2] * 2], [scale[3], scale[5], scale[0] * 2], [scale[4], scale[0] * 2, scale[2] * 2]],
-					[
-						[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[0], scale[1], scale[4] * 0.5], [scale[0], scale[2], scale[4]],
-						[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
-						[[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]]]
-					]
+
+					[[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[0], scale[1], scale[4] * 0.5], [scale[0], scale[2], scale[4]]],
+
+					[[scale[1], scale[3], scale[5]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]], [scale[0], scale[2], scale[4]]],
+
+					[[scale[2], scale[4], scale[6]], [scale[3], scale[5], scale[0]], [scale[4], scale[6], scale[1] * 2], [scale[0], scale[2], scale[4]]],
+
+					[[scale[2], scale[4], scale[6]], [scale[5], scale[0] * 1, scale[2] * 2], [scale[1], scale[3], scale[5]], [scale[0], scale[2], scale[4]]],
+
+					[[scale[3], scale[5], scale[0] * 2], [scale[4], scale[6], scale[1]], [scale[5], scale[0] * 2, scale[2] * 2], [scale[0], scale[2], scale[4]]],
+
+					[[scale[3], scale[5], scale[0] * 2], [scale[6], scale[1] * 1, scale[3] * 2], [scale[2], scale[4], scale[6]], [scale[0], scale[2], scale[4]]],
+
+					[[scale[4], scale[6], scale[1] * 2], [scale[5], scale[0] * 2, scale[2]], [scale[6], scale[1] * 2, scale[3] * 2], [scale[0], scale[2], scale[4]]],
+
+					[[scale[2], scale[4], scale[6]], [scale[5], scale[0] * 1, scale[2] * 2], [scale[1], scale[3], scale[5]], [scale[1], scale[3], scale[5]]],
+
+					[[scale[3], scale[5], scale[0] * 2], [scale[4], scale[6], scale[1]], [scale[5], scale[0] * 2, scale[2] * 2], [scale[1], scale[3], scale[5]]],
+
+					[[scale[3], scale[5], scale[0] * 2], [scale[6], scale[1] * 1, scale[3] * 2], [scale[2], scale[4], scale[6]], [scale[2], scale[4], scale[6]]],
+
+					[[scale[4], scale[6], scale[1] * 2], [scale[5], scale[0] * 2, scale[2]], [scale[6], scale[1] * 2, scale[3] * 2], [scale[2], scale[4], scale[6]]]
+
+
 
 					].choose;
 				};
 
-				first = 0;
+
 
 				SynthDef(\bass, {
 					var env, mod, sig;
@@ -5194,7 +5213,7 @@ Livestream43 : Livestream {
 					SendReply.ar(Impulse.ar(8.5), '/arp', sig);
 					sig = sig * 0.8;
 					sig = sig * 0.6;
-					sig = Limiter.ar(sig, 0.1) * 1.5;
+					sig = Limiter.ar(sig, 0.1) * 1.25;
 
 				});
 
@@ -5206,7 +5225,7 @@ Livestream43 : Livestream {
 					sig = sig.blend(Saw.ar(freq, 1.0), 0.4);
 					sig = RLPF.ar(sig, freq * 0.8 + (LFNoise2.kr(0.25, 900).abs), 0.5 + LFNoise2.kr(0.3, 0.4).abs);
 					sig = Pan2.ar(sig, LFNoise2.kr(0.08, 0.5));
-					sig = sig * 0.13 * LFNoise2.kr(0.08 + SinOsc.kr(0.035, 0, 0.12).abs, 0.9).abs * 0.95;
+					sig = sig * 0.13 * LFNoise2.kr(0.08 + SinOsc.kr(0.035, 0, 0.12).abs, 0.9).abs * 0.78;
 
 					sig = FreeVerb.ar(sig, 0.3, 0.75, 0.1);
 					sig = MojiDistort2.ar(sig, 0.03, 0.03, 0.01) * 1.2;
@@ -5215,10 +5234,20 @@ Livestream43 : Livestream {
 					SendReply.ar(Impulse.ar(8.5), '/arp2', sig);
 					sig = sig * 0.8;
 					sig = sig * 0.6;
-					sig = Limiter.ar(sig, 0.1) * 1.5;
+					sig = Limiter.ar(sig, 0.1) * 1.25;
 
 
 				});
+
+				Ndef(\d, {
+					var sig, freq;
+					freq = [scale[0], scale[2], scale[4], scale[0]] * 2;
+					sig = SinOsc.ar(freq, 0, 0.07) * 0.25;
+					sig = sig.sum;
+					sig = Pan2.ar(sig, 0);
+					sig = sig * LFNoise2.kr(0.01 + LFNoise2.kr(0.3, 0.03).abs, 0.8);
+				});
+
 
 				Ndef(\fire, {
 					var noise, sig;
@@ -5235,7 +5264,7 @@ Livestream43 : Livestream {
 
 					sig = sig.blend(noise, 0.895);
 					sig = sig.blend(BPF.ar(sig, 280, 0.04), 0.225);
-					sig = Pan2.ar(sig, 0.0) * 0.9 * LFNoise2.kr(0.03, 0.95).abs * 1.2;
+					sig = Pan2.ar(sig, 0.0) * 0.9 * LFNoise2.kr(0.03, 0.95).abs;
 				});
 
 
@@ -5246,7 +5275,7 @@ Livestream43 : Livestream {
 					\dec, tSig * 1.3 * tMul,
 					\atk, 0.3,
 					\freq, Pseq([chords[0][0], chords[1][0], chords[2][0], chords[3][0]], inf) * 0.5,
-					\mul, 0.2125,
+					\mul, 0.136,
 					\pan, Pwhite(-0.1, 0.1, inf),
 					\out, ~bus1
 				));
@@ -5257,7 +5286,7 @@ Livestream43 : Livestream {
 					\mmul, 0.1,
 					\dec, 5.5 * tMul,
 					\freq, Pseq(pluckMelody, inf) * Prand([1, 2, 1, 2, 2, 4, 2, 4], inf) * 2,
-					\mul, 0.15 * 0.8,
+					\mul, 0.135 * 0.7,
 					\pan, 0.2,
 					\out, ~bus2
 				));
@@ -5270,7 +5299,7 @@ Livestream43 : Livestream {
 					\dec, 3.5 * tMul,
 					\atk, 3.5 * tMul,
 					\freq, Pseq(pluck2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
-					\mul, 0.035 * 0.9,
+					\mul, 0.02* 0.78,
 					\pan, -0.4,
 					\out, ~bus1
 				));
@@ -5282,7 +5311,7 @@ Livestream43 : Livestream {
 					\dec, 3.5 * tMul,
 					\atk, 3.5 * tMul,
 					\freq, Pseq(synth2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
-					\mul, 0.035 * 0.9,
+					\mul, 0.02 * 0.78,
 					\pan, -0.4,
 					\out, ~bus1
 				));
@@ -5294,7 +5323,7 @@ Livestream43 : Livestream {
 					\dec, 4.5 * tMul,
 					\atk, 0.5 * tMul,
 					\freq, Pseq(synthMelody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf),
-					\mul, 0.035 * 0.9,
+					\mul, 0.02 * 0.78,
 					\pan, -0.4,
 					\out, ~bus2
 				));
@@ -5306,7 +5335,7 @@ Livestream43 : Livestream {
 					\dec, 5.5 * tMul,
 					\atk, 0.5 * tMul,
 					\freq, Pseq(synth2Melody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
-					\mul, 0.035,
+					\mul, 0.018,
 					\pan, Pwhite(-0.4, 0.5, inf),
 					\out, ~bus3
 				));
@@ -5318,7 +5347,7 @@ Livestream43 : Livestream {
 					\dec, 5.5 * tMul,
 					\atk, 0.5 * tMul,
 					\freq, Pseq(pluckMelody, inf) * Prand([1, 2, 1, 2, 2, 0.5, 2, 4], inf) * 2,
-					\mul, 0.035,
+					\mul, 0.018,
 					\pan, Pwhite(-0.4, 0.5, inf),
 					\out, ~bus3
 				));
@@ -5326,7 +5355,7 @@ Livestream43 : Livestream {
 				Pdef(\synth3, Pbind(
 					\instrument, Pseq(synth3Array, inf),
 					\dur, [0.25, 0.5, 1, 2].choose,
-					\mul, 0.08 * 0.8,
+					\mul, 0.08 * 0.4,
 					\dec, 6 * tMul,
 					\freq, Pseq(synth3Melody, inf) * Prand([2, 2, 4, 2, 4, 2, 4, 2], inf) * 2,
 					\pan, Pwhite(-1.0, 1.0, inf),
@@ -5336,10 +5365,10 @@ Livestream43 : Livestream {
 				Pdef(\chords, Pbind(
 					\instrument, \synth,
 					\dur, tSig,
-					\mul, 0.082,
+					\mul, 0.06,
 					\mmul, rrand(0.05, 0.35),
 					\dec, tSig * 1.3 * tMul,
-					\atk, Pwhite(0.01, 0.5, inf),
+					\atk, Pwhite(0.07, 0.5, inf),
 					\freq, Pseq(chords, inf) * 2,
 					\pan, Pwhite(-0.3, 0.3, inf),
 					\out, ~main
@@ -5347,10 +5376,12 @@ Livestream43 : Livestream {
 
 				Ndef(\visual, {
 					var sig;
-					sig = [In.ar(0, 2).sum, Ndef(\arp).ar.sum, Ndef(\arp2).ar.sum, Ndef(\fire).ar.sum].sum;
+					sig = [In.ar(0, 2).sum, Ndef(\arp).ar.sum, Ndef(\arp2).ar.sum, Ndef(\fire).ar.sum, Ndef(\d).ar.sum].sum;
 					sig = [sig, DelayN.ar(sig, 0.001, 0.001)];
 					Out.ar(~visual, sig);
 				});
+
+				first = 0;
 
 
 				Pdef(\bass).stop;
@@ -5373,22 +5404,35 @@ Livestream43 : Livestream {
 				Pdef(\synth5).play(clock);
 				Pdef(\chords).play(clock);
 
+
+				Ndef(\fire).play;
 				Ndef(\fire).fadeTime = 20;
-				Ndef(\fire).free;
 				Ndef(\fire).play;
 
+
+				Ndef(\arp).play;
 				Ndef(\arp).fadeTime = 20;
 				Ndef(\arp).free;
 				Ndef(\arp).play;
 
+				Ndef(\arp2).play;
 				Ndef(\arp2).fadeTime = 20;
 				Ndef(\arp2).free;
 				Ndef(\arp2).play;
 
+				Ndef(\d).play;
+				Ndef(\d).fadeTime = 20;
+				Ndef(\d).free;
+				Ndef(\d).play;
+
+				Ndef(\visual).play;
 				Ndef(\visual).free;
 				Ndef(\visual).play;
 
+
+
 			};
+
 
 		};
 
@@ -5402,18 +5446,21 @@ Livestream43 : Livestream {
 			sig = LPF.ar(sig, 900).blend(HPF.ar(sig, 1400), 0.5).blend(sig, 0.775);
 			sig = LPF.ar(sig, 200).blend(HPF.ar(sig, 800), 0.495).blend(sig, 0.825);
 			sig = LPF.ar(sig, 1600).blend(HPF.ar(sig, 2580), 0.5).blend(sig, 0.275);
-			sig = sig * 0.6;
+			sig = sig * 0.8;
+			sig = MojiCompressor.ar(LPF.ar(sig * 0.9, 800), 0.85, 0.455, 4.5, 0.003, 0.003).blend(
+				MojiCompressor.ar(HPF.ar(sig, 800), 0.8, 0.2, 5, 0.003, 0.003), 0.5);
 			sig = MojiCompressor.ar(sig, 0.2, 0.9, 1, 0.001, 0.001, 0.1);
 			sig = sig * 1.125;
 			sig = MojiCompressor.ar(sig, 0.2, 0.9, 1, 0.001, 0.001, 0.1);
-			sig = MojiDistort2.ar(sig, 0.03, 0.01, 0.004, 0.0002, 0, 0, -400);
+			sig = MojiDistort2.ar(sig * 0.8, 0.03, 0.01, 0.004, 0.0002, 0, 0, -400);
 			sig = LPF.ar(sig, 2300).blend(HPF.ar(sig, 3680), 0.475).blend(sig, 0.65);
-			sig = sig * 1.29;
+			sig = sig * 1.3;
 			sig = MojiDistort2.ar(sig, 0.1, 0.01, 0.01, 0.01, 0.01, 0.01);
 			sig = sig.blend(LPF.ar(sig, 1800), 0.22) * 1.08;
 			sig = HPF.ar(sig, 60);
 			sig = HPF.ar(sig, 40);
 			sig = HPF.ar(sig, 40);
+			sig = sig * 1.2;
 
 			sig = Limiter.ar(sig * 1.7, 0.9);
 			SendReply.ar(Impulse.ar(8.5), '/main', sig);
@@ -5506,59 +5553,6 @@ Livestream43 : Livestream {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
